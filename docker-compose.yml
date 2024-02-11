@@ -6,7 +6,9 @@ networks:
 
 services:
   bio-node:
-    build: .
+    build:
+      dockerfile: docker/Dockerfile
+      context: .
     container_name: bio-node
     volumes:
       - ./:/usr/www/app
