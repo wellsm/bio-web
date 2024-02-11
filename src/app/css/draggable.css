@@ -1,0 +1,4 @@
+.flex [data-rfd-droppable-id] {
+    display: flex;
+    gap: 0.5rem;
+}
