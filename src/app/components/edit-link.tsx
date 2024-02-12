@@ -25,6 +25,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { http } from "@/lib/api";
 import { useToastStore } from "@/app/stores/toast";
 import { Loader } from "lucide-react";
+import { src } from "@/lib/utils";
 
 type EditLinkProps = {
   children?: ReactNode;
@@ -158,7 +159,7 @@ export function EditLink({
                 )}
               ></FormField>
 
-              {link?.thumbnail && <img src={link.thumbnail} />}
+              {link?.thumbnail && <img src={src(link.thumbnail)} />}
 
               <FormField
                 control={form.control}

@@ -10,6 +10,7 @@ import { useState } from "react";
 import { http } from "@/lib/api";
 import { useToastStore } from "../stores/toast";
 import { Confirmation } from "./confirmation";
+import { src } from "@/lib/utils";
 
 type LinkProps = ILink & {
   onChange(): void;
@@ -53,7 +54,7 @@ export function Link({
         <div className="col-span-7 xl:col-span-5">
           <div className="flex flex-col  sm:flex-row">
             <Avatar className="mr-4 mb-2 sm:mb-0">
-              <AvatarImage src={thumbnail} />
+              <AvatarImage src={src(thumbnail)} />
             </Avatar>
             <div>
               <CardTitle className="text-sm font-medium">{title}</CardTitle>
