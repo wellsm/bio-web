@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/pagination";
 import { usePagination } from "../contexts/pagination";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 type PaginateProps = React.ComponentPropsWithoutRef<React.ElementType> & {
   current_page: number;
@@ -29,6 +30,7 @@ export function Paginate({
   onPageChange,
   ...props
 }: PaginateProps) {
+  const { t } = useTranslation();
   const range = usePagination({
     currentPage,
     lastPage,
@@ -44,6 +46,7 @@ export function Paginate({
           <PaginationItem>
             <PaginationPrevious
               size="default"
+              buttonText={t('Previous')}
               onClick={() => onPageChange(currentPage - 1)}
               className={cn(
                 "cursor-pointer",
@@ -78,6 +81,7 @@ export function Paginate({
           <PaginationItem>
             <PaginationNext
               size="default"
+              buttonText={t('Next')}
               onClick={() => onPageChange(currentPage + 1)}
               className={cn(
                 "cursor-pointer",

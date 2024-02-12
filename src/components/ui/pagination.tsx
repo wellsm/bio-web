@@ -7,6 +7,7 @@ import {
 
 import { cn } from "@/lib/utils";
 import { ButtonProps, buttonVariants } from "@/components/ui/button";
+import { t } from "i18next";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
   <nav
@@ -40,6 +41,7 @@ PaginationItem.displayName = "PaginationItem";
 
 type PaginationLinkProps = {
   isActive?: boolean;
+  buttonText?: string;
 } & Pick<ButtonProps, "size"> &
   React.ComponentProps<"a">;
 
@@ -66,6 +68,7 @@ PaginationLink.displayName = "PaginationLink";
 
 const PaginationPrevious = ({
   className,
+  buttonText = 'Previous',
   ...props
 }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
@@ -74,13 +77,14 @@ const PaginationPrevious = ({
     {...props}
   >
     <ChevronLeftIcon className="h-4 w-4" />
-    <span className="hidden md:block">Previous</span>
+    <span className="hidden md:block">{t(buttonText)}</span>
   </PaginationLink>
 );
 PaginationPrevious.displayName = "PaginationPrevious";
 
 const PaginationNext = ({
   className,
+  buttonText = 'Next',
   ...props
 }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
@@ -88,7 +92,7 @@ const PaginationNext = ({
     className={cn("gap-0 px-3 md:gap-1 md:pr-2.5", className)}
     {...props}
   >
-    <span className="hidden md:block">Next</span>
+    <span className="hidden md:block">{t(buttonText)}</span>
     <ChevronRightIcon className="h-4 w-4" />
   </PaginationLink>
 );
