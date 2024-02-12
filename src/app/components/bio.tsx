@@ -38,7 +38,7 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
     http.get("bio").then(({ data }) => {
       setBio(data);
 
-      interact(1, 'profile');
+      interact(1, 'view');
     });
   }, []);
 
@@ -85,6 +85,7 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
               />
             </div>
           )}
+
           {links?.map((link, index) => (
             <BioLink 
               id={link.id}
