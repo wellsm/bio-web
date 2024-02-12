@@ -3,9 +3,11 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { http } from "@/lib/api";
 import { useEffect, useState } from "react";
+import { useBioStore } from "../stores/bio";
 
 export function Configs() {
   const [configs, setConfigs] = useState<any>();
+  const { onBioChange } = useBioStore();
 
   useEffect(() => {
     http.get("configs").then(({ data }) => setConfigs(data));
@@ -13,6 +15,8 @@ export function Configs() {
 
   const onChangeConfig = async (key: string, value: any) => {
     await http.put("configs", { key, value });
+
+    onBioChange()
   };
 
   return (
