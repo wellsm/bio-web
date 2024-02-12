@@ -8,9 +8,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Input } from "@/components/ui/input";
 import { http } from "@/lib/api";
 import { IBio } from "../interfaces/bio";
-import { cn, src } from "@/lib/utils";
+import { cn, fallback, src } from "@/lib/utils";
 import { Loading } from "./loading";
 import { useBioStore } from "../stores/bio";
+import { t } from "i18next";
 
 export enum BioMode {
   Default = 'default',
@@ -52,14 +53,14 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
 
   if (bio === null) {
     return <Loading />;
-  }
+}
 
   return (
     <div className="flex justify-center py-10 min-h-screen bg-gray-50 px-3">
       <div className="flex flex-col items-center max-w-screen-sm w-full">
         <Avatar className={cn(mode == BioMode.Mobile ? "h-20 w-20" : "sm:h-24 sm:w-24", "h-20 w-20")}>
           <AvatarImage src={src(bio.profile.avatar)} />
-          <AvatarFallback>EF</AvatarFallback>
+          <AvatarFallback>{fallback(bio.profile.name)}</AvatarFallback>
         </Avatar>
         <h6 className={cn(mode == BioMode.Mobile ? "text-base font-semibold mt-3" : "md:mt-4 sm:text-xl sm:font-bold", "text-base font-semibold text-slate-950")}>
           {bio.profile.name}
@@ -80,7 +81,7 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
               <Search className={cn(mode == BioMode.Mobile ? "top-3" : "md:top-3.5", "absolute left-2 top-3 h-4 w-4 text-muted-foreground")} />
               <Input
                 type="search"
-                placeholder="Search Links, Products"
+                placeholder={t("Search Links, Products")}
                 className={cn(mode == BioMode.Mobile ? "h-10" : "md:h-11", "pl-8 py-4 h-10 text-gray-900 focus-visible:ring-0 border-zinc-200 focus-visible:outline-none")}
                 onKeyUp={onTypeSearch}
                 onChange={onTypeSearch}

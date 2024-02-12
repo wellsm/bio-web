@@ -6,11 +6,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Overview } from "@/app/components/overview";
 import { useEffect, useState } from "react";
 import { http } from "@/lib/api";
-import { src } from "@/lib/utils";
+import { fallback, src } from "@/lib/utils";
 import { Metric } from "../components/metric";
+import { useTranslation } from "react-i18next";
 
 export function Dashboard() {
   const [data, setData] = useState<any>({});
+  const { t } = useTranslation();
 
   useEffect(() => {
     http.get("overview").then(({ data }) => setData(data));
@@ -19,7 +21,7 @@ export function Dashboard() {
   return (
     <div className="flex-1 space-y-4 p-4 pt-4 sm:px-8">
       <div className="flex items-center justify-between space-y-2">
-        <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
+        <h2 className="text-3xl font-bold tracking-tight">{t('Dashboard')}</h2>
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Metric title="Views" data={data?.views ?? 0} />
@@ -30,7 +32,7 @@ export function Dashboard() {
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-7">
         <Card className="col-span-3">
           <CardHeader>
-            <CardTitle>Overview (Clicks)</CardTitle>
+            <CardTitle>{t('Overview')} ({t('Clicks')})</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
             <Overview data={data.overview} />
@@ -38,7 +40,7 @@ export function Dashboard() {
         </Card>
         <Card className="col-span-3 lg:col-span-2">
           <CardHeader>
-            <CardTitle>Traffic Out (Products)</CardTitle>
+            <CardTitle>Traffic Out (Links)</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -48,10 +50,7 @@ export function Dashboard() {
                     <Avatar className="h-9 w-9">
                       <AvatarImage src={src(link.thumbnail)} alt="Avatar" />
                       <AvatarFallback>
-                        {link.column
-                          .split(" ")
-                          .map((l: string) => l.substring(0, 1))
-                          .join("")}
+                        {fallback(link.column)}
                       </AvatarFallback>
                     </Avatar>
                     <div className="ml-4 space-y-1 w-full">
@@ -68,7 +67,7 @@ export function Dashboard() {
         </Card>
         <Card className="col-span-3 lg:col-span-2">
           <CardHeader>
-            <CardTitle>Traffic Out (Social Media)</CardTitle>
+            <CardTitle>Traffic Out ({t('Social Media')})</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">

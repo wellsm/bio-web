@@ -4,10 +4,12 @@ import { Switch } from "@/components/ui/switch";
 import { http } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { useBioStore } from "../stores/bio";
+import { useTranslation } from "react-i18next";
 
 export function Configs() {
   const [configs, setConfigs] = useState<any>();
   const { onBioChange } = useBioStore();
+  const { t } = useTranslation();
 
   useEffect(() => {
     http.get("configs").then(({ data }) => setConfigs(data));
@@ -28,9 +30,9 @@ export function Configs() {
             key={config.key}
           >
             <Label htmlFor={config.key} className="flex flex-col space-y-1">
-              <span>{config.name}</span>
+              <span>{t(config.name)}</span>
               <span className="font-normal leading-snug text-muted-foreground">
-                {config.description}
+                {t(config.description)}
               </span>
             </Label>
             <Switch

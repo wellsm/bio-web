@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Eye } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 type MetricProps = {
   title: string;
@@ -8,6 +9,8 @@ type MetricProps = {
 };
 
 export function Metric({ title, data, format = true }: MetricProps) {
+  const { t } = useTranslation();
+
   const formatData = (total: number): string => {
     if (total > 1000) {
       return (total / 1000).toFixed(1) + "K";
@@ -19,7 +22,7 @@ export function Metric({ title, data, format = true }: MetricProps) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
+        <CardTitle className="text-sm font-medium">{t(title)}</CardTitle>
         <Eye className="h-5 w-5" />
       </CardHeader>
       <CardContent>

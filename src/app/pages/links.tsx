@@ -12,6 +12,7 @@ import { LinkFilter } from "@/app/components/link-filter";
 import { useSearchParams } from "react-router-dom";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useBioStore } from "../stores/bio";
+import { useTranslation } from "react-i18next";
 
 type LinkResponse = {
   meta: IPagination;
@@ -22,6 +23,7 @@ export function Links() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [response, setResponse] = useState<LinkResponse>({} as LinkResponse);
   const { onBioChange } = useBioStore();
+  const { t } = useTranslation();
 
   const applyFilters = (values: any) => {
     const params = Object.keys(values)
@@ -64,7 +66,7 @@ export function Links() {
           <AddLink onSave={() => onSaveLink()}>
             <Button className="w-full mb-2">
               <PlusCircle className="w-4 h-4 mr-2" />
-              Add Link
+              {t("Add Link")}
             </Button>
           </AddLink>
           <div className="links w-full mt-2">
@@ -75,9 +77,11 @@ export function Links() {
             ) : (
               <Alert>
                 <ListX className="h-4 w-4" />
-                <AlertTitle>No Results</AlertTitle>
+                <AlertTitle>{t("No Results")}</AlertTitle>
                 <AlertDescription>
-                  There are no records to display for the selected filters
+                  {t(
+                    "There are no records to display for the selected filters"
+                  )}
                 </AlertDescription>
               </Alert>
             )}

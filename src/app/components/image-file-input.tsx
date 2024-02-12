@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { UploadCloud } from "lucide-react";
 import { useState } from "react";
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 
 type ImageFileInputProps = React.ComponentPropsWithoutRef<React.ElementType> & {
   label: string;
@@ -19,12 +20,13 @@ export function ImageFileInput({
   ...props
 }: ImageFileInputProps) {
   const [file, setFile] = useState<File | null>(null);
+  const { t } = useTranslation();
 
   const url = file && URL.createObjectURL(file);
 
   return (
     <div {...props}>
-      <Label htmlFor="thumbnail">{label}</Label>
+      <Label htmlFor="thumbnail">{t(label)}</Label>
       <div className="flex items-center justify-center w-full mt-3">
         <label
           htmlFor="thumbnail"
@@ -33,8 +35,8 @@ export function ImageFileInput({
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
             <UploadCloud className="h-7 w-7 mb-2" />
             <p className="mb-2 text-sm text-gray-400 dark:text-gray-300">
-              <span className="font-semibold">Click to upload</span> or drag and
-              drop
+              <span className="font-semibold">{t("Click to upload")}</span>{" "}
+              {t("or drag and drop")}
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">
               PNG, JPG, JPEG, WEBP
@@ -53,7 +55,7 @@ export function ImageFileInput({
               }
 
               setFile(files[0]);
-              onSelect(files[0])
+              onSelect(files[0]);
             }}
           />
         </label>

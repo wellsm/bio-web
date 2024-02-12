@@ -26,6 +26,7 @@ import { http } from "@/lib/api";
 import { useToastStore } from "@/app/stores/toast";
 import { Loader } from "lucide-react";
 import { src } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 type EditLinkProps = {
   children?: ReactNode;
@@ -62,6 +63,7 @@ export function EditLink({
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(isDefaultOpen);
   const { openToast } = useToastStore();
+  const { t } = useTranslation();
 
   const form = useForm<z.infer<typeof linkSchema>>({
     resolver: zodResolver(linkSchema),
@@ -103,10 +105,9 @@ export function EditLink({
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Edit Link</SheetTitle>
+          <SheetTitle>{t('Edit Link')}</SheetTitle>
           <SheetDescription>
-            Edit your link here. Click save when you're
-            done.
+            {t("Edit your link here. Click save when you're done.")}
           </SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
@@ -121,7 +122,7 @@ export function EditLink({
                 defaultValue={link?.title}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Title</FormLabel>
+                    <FormLabel>{t('Title')}</FormLabel>
                     <FormControl>
                       <Input
                         id="title"
@@ -143,7 +144,7 @@ export function EditLink({
                 defaultValue={link?.url}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>URL</FormLabel>
+                    <FormLabel>{t('URL')}</FormLabel>
                     <FormControl>
                       <Input
                         id="url"
@@ -181,7 +182,7 @@ export function EditLink({
 
               <Button className="w-full" disabled={isSaving}>
                 {isSaving && <Loader className="mr-2 h-4 w-4 animate-spin" />}
-                Save
+                {t('Save')}
               </Button>
             </form>
           </Form>

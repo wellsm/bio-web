@@ -26,6 +26,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { http } from "@/lib/api";
 import { useToastStore } from "@/app/stores/toast";
 import { Loader } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 type AddLinkProps = {
   children: ReactNode;
@@ -55,6 +56,7 @@ export function AddLink({ children, link, onSave }: AddLinkProps) {
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
   const { openToast } = useToastStore();
+  const { t } = useTranslation();
 
   const form = useForm<z.infer<typeof linkSchema>>({
     resolver: zodResolver(linkSchema),
@@ -91,9 +93,9 @@ export function AddLink({ children, link, onSave }: AddLinkProps) {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Add Link</SheetTitle>
+          <SheetTitle>{t("Add Link")}</SheetTitle>
           <SheetDescription>
-            Add new link here. Click save when you're done.
+            {t("Add new link here. Click save when you're done.")}
           </SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
@@ -108,7 +110,7 @@ export function AddLink({ children, link, onSave }: AddLinkProps) {
                 defaultValue={link?.title}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Title</FormLabel>
+                    <FormLabel>{t('Title')}</FormLabel>
                     <FormControl>
                       <Input
                         id="title"
@@ -130,7 +132,7 @@ export function AddLink({ children, link, onSave }: AddLinkProps) {
                 defaultValue={link?.url}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>URL</FormLabel>
+                    <FormLabel>{t('URL')}</FormLabel>
                     <FormControl>
                       <Input
                         id="url"
@@ -168,7 +170,7 @@ export function AddLink({ children, link, onSave }: AddLinkProps) {
 
               <Button className="w-full" disabled={isSaving}>
                 {isSaving && <Loader className="mr-2 h-4 w-4 animate-spin" />}
-                Save
+                {t('Save')}
               </Button>
             </form>
           </Form>

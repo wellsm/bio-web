@@ -22,44 +22,51 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslation } from "react-i18next";
 
 const linkFilterSchema = z.object({
   title: z.string(),
   url: z.string(),
-  active: z.string()
+  active: z.string(),
 });
 
 export type LinkFilterFormProps = {
-    title?: string
-    url?: string
-    active?: string
-}
+  title?: string;
+  url?: string;
+  active?: string;
+};
 
 type LinkFilterProps = LinkFilterFormProps & {
-    onFilter(filters: LinkFilterFormProps): void
-}
+  onFilter(filters: LinkFilterFormProps): void;
+};
 
-export function LinkFilter({ title = '', url = '', active = '', onFilter }: LinkFilterProps) {
+export function LinkFilter({
+  title = "",
+  url = "",
+  active = "",
+  onFilter,
+}: LinkFilterProps) {
   const [isFiltering, setIsFiltering] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   const form = useForm<z.infer<typeof linkFilterSchema>>({
     resolver: zodResolver(linkFilterSchema),
     defaultValues: {
-        title,
-        url,
-        active
+      title,
+      url,
+      active,
     },
   });
 
   async function onSubmit(values: z.infer<typeof linkFilterSchema>) {
-    onFilter(values)
+    onFilter(values);
   }
 
   return (
     <Card>
       <CardHeader className="p-4">
         <CardTitle className="flex items-center justify-between">
-          <span className="mt-0 lg:mt-2">Filters</span>
+          <span className="mt-0 lg:mt-2">{t("Filters")}</span>
           <Button
             variant="ghost"
             size="sm"
@@ -82,13 +89,16 @@ export function LinkFilter({ title = '', url = '', active = '', onFilter }: Link
         )}
       >
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col gap-3"
+          >
             <FormField
               control={form.control}
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title</FormLabel>
+                  <FormLabel>{t("Title")}</FormLabel>
                   <FormControl>
                     <Input
                       id="title"
@@ -109,7 +119,7 @@ export function LinkFilter({ title = '', url = '', active = '', onFilter }: Link
               name="url"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>URL</FormLabel>
+                  <FormLabel>{t("URL")}</FormLabel>
                   <FormControl>
                     <Input
                       id="url"
@@ -130,7 +140,7 @@ export function LinkFilter({ title = '', url = '', active = '', onFilter }: Link
               name="active"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Status</FormLabel>
+                  <FormLabel>{t("Status")}</FormLabel>
                   <FormControl>
                     <ToggleGroup
                       id="active"
@@ -138,15 +148,17 @@ export function LinkFilter({ title = '', url = '', active = '', onFilter }: Link
                       className="flex flex-row lg:flex-col xl:flex-row justify-betweenn mt-2"
                       variant="outline"
                       {...field}
-                      onValueChange={(value: string) => form.setValue('active', value)}
+                      onValueChange={(value: string) =>
+                        form.setValue("active", value)
+                      }
                     >
                       <ToggleGroupItem value="1" className="grow w-full">
                         <CheckCircle className="h-4 w-4 text-green-500 mr-3" />
-                        <span className="text-xs">Active</span>
+                        <span className="text-xs">{t("Active")}</span>
                       </ToggleGroupItem>
                       <ToggleGroupItem value="0" className="grow w-full">
                         <Circle className="h-4 w-4 text-red-500 mr-3" />
-                        <span className="text-xs">Inactive</span>
+                        <span className="text-xs">{t("Inactive")}</span>
                       </ToggleGroupItem>
                     </ToggleGroup>
                   </FormControl>
@@ -155,45 +167,9 @@ export function LinkFilter({ title = '', url = '', active = '', onFilter }: Link
               )}
             ></FormField>
 
-            {/* <div>
-              <Label htmlFor="title">Title</Label>
-              <Input type="text" name="title" id="title" className="mt-2" />
-            </div>
-
-            <div>
-              <Label htmlFor="url">URL</Label>
-              <Input
-                type="text"
-                name="url"
-                id="url"
-                className="mt-2"
-                autoComplete="off"
-                autoCorrect="off"
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="status">Status</Label>
-              <ToggleGroup
-                id="status"
-                type="single"
-                className="flex flex-row lg:flex-col xl:flex-row justify-betweenn mt-2"
-                variant="outline"
-              >
-                <ToggleGroupItem value="1" className="grow w-full">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-3" />
-                  <span className="text-xs">Active</span>
-                </ToggleGroupItem>
-                <ToggleGroupItem value="0" className="grow w-full">
-                  <Circle className="h-4 w-4 text-red-500 mr-3" />
-                  <span className="text-xs">Inactive</span>
-                </ToggleGroupItem>
-              </ToggleGroup>
-            </div> */}
-
             <Button className="w-full" disabled={isFiltering}>
               {isFiltering && <Loader className="mr-2 h-4 w-4 animate-spin" />}
-              Filter
+              {t("Filter")}
             </Button>
           </form>
         </Form>

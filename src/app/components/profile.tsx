@@ -20,6 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useToastStore } from "../stores/toast";
 import { Loader } from "lucide-react";
 import { useBioStore } from "../stores/bio";
+import { useTranslation } from "react-i18next";
 
 const ACCEPTED_IMAGE_TYPES = [
   "image/jpeg",
@@ -43,6 +44,7 @@ export function Profile() {
   const [profile, setProfile] = useState<any>({});
   const { openToast } = useToastStore();
   const { onBioChange } = useBioStore();
+  const { t } = useTranslation();
 
   const form = useForm<z.infer<typeof profileSchema>>({
     resolver: zodResolver(profileSchema),
@@ -83,7 +85,7 @@ export function Profile() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Profile</CardTitle>
+        <CardTitle>{t('Profile')}</CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -97,7 +99,7 @@ export function Profile() {
               defaultValue={profile?.name}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>{t('Name')}</FormLabel>
                   <FormControl>
                     <Input
                       id="name"
@@ -134,7 +136,7 @@ export function Profile() {
 
             <Button className="w-full" disabled={isSaving}>
               {isSaving && <Loader className="mr-2 h-4 w-4 animate-spin" />}
-              Save
+              {t('Save')}
             </Button>
           </form>
         </Form>

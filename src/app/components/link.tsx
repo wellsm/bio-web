@@ -11,6 +11,7 @@ import { http } from "@/lib/api";
 import { useToastStore } from "../stores/toast";
 import { Confirmation } from "./confirmation";
 import { src } from "@/lib/utils";
+import { useBioStore } from "../stores/bio";
 
 type LinkProps = ILink & {
   onChange(): void;
@@ -27,6 +28,7 @@ export function Link({
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const { openToast } = useToastStore();
+  const { onBioChange } = useBioStore();
 
   const onLinkChange = () => {
     setIsEditing(false);
@@ -41,6 +43,8 @@ export function Link({
   const onActiveChange = async () => {
     try {
       await http.put(`links/${id}/toggle`);
+
+      onBioChange();
     } catch (error: any) {
       const { data } = error.response;
 

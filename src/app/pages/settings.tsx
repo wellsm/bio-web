@@ -3,13 +3,15 @@ import { Button } from "@/components/ui/button";
 import { SocialMedias } from "@/app/components/social-medias";
 import { Profile } from "@/app/components/profile";
 import { Configs } from "../components/configs";
+import { useTranslation } from "react-i18next";
 
 export function Settings() {
+  const { t } = useTranslation();
 
   return (
     <div className="flex-1 space-y-4 p-4 pt-4 sm:px-8">
       <div className="flex items-center justify-between space-y-2">
-        <h2 className="text-3xl font-bold tracking-tight">Settings</h2>
+        <h2 className="text-3xl font-bold tracking-tight">{t('Settings')}</h2>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="col-span-2 xl:col-span-1">
@@ -19,9 +21,9 @@ export function Settings() {
           <SocialMedias/>
           <Card>
             <CardHeader>
-              <CardTitle>Preferences</CardTitle>
+              <CardTitle>{t('Preferences')}</CardTitle>
               <CardDescription>
-                Manage your preferences here.
+                {t('Manage your preferences here.')}
               </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-6">
@@ -29,7 +31,7 @@ export function Settings() {
             </CardContent>
             <CardFooter>
               <Button className="w-full">
-                Save Preferences
+                {t('Save Preferences')}
               </Button>
             </CardFooter>
           </Card>

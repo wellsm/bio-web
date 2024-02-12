@@ -29,6 +29,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { http } from "@/lib/api";
 import { useToastStore } from "@/app/stores/toast";
 import { Loader } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 type AddSocialMediaProps = {
   children: ReactNode;
@@ -50,6 +51,7 @@ export function AddSocialMedia({
   const [isOpen, setIsOpen] = useState(false);
   const [icon, setIcon] = useState<IIcon | undefined>(media?.icon);
   const { openToast } = useToastStore();
+  const { t } = useTranslation();
 
   const form = useForm<z.infer<typeof mediaSchema>>({
     resolver: zodResolver(mediaSchema),
@@ -80,10 +82,10 @@ export function AddSocialMedia({
   };
 
   const onChangeIcon = (icon: IIcon) => {
-    setIcon(icon)
+    setIcon(icon);
 
-    form.setValue('icon', `${icon.family} ${icon.icon}`)
-  }
+    form.setValue("icon", `${icon.family} ${icon.icon}`);
+  };
 
   return (
     <Sheet open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
@@ -92,10 +94,9 @@ export function AddSocialMedia({
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>{media ? "Edit" : "Add"} Social Media</SheetTitle>
+          <SheetTitle>{t("Add Social Media")}</SheetTitle>
           <SheetDescription>
-            {media ? "Edit your" : "Add new"} social media here. Click save when
-            you're done.
+            {t("Add new social media here. Click save when you're done.")}
           </SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
@@ -107,10 +108,9 @@ export function AddSocialMedia({
               <FormField
                 control={form.control}
                 name="icon"
-                
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Icon</FormLabel>
+                    <FormLabel>{t('Icon')}</FormLabel>
                     <FormControl>
                       <div className="relative">
                         {icon && (
@@ -139,7 +139,7 @@ export function AddSocialMedia({
 
               <IconPicker onIconSelect={onChangeIcon}>
                 <Button variant="outline" className="-mt-2">
-                  Select Icon
+                  {t('Select Icon')}
                 </Button>
               </IconPicker>
 
@@ -148,7 +148,7 @@ export function AddSocialMedia({
                 name="url"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>URL</FormLabel>
+                    <FormLabel>{t('URL')}</FormLabel>
                     <FormControl>
                       <Input
                         id="url"
@@ -166,7 +166,7 @@ export function AddSocialMedia({
 
               <Button className="w-full" disabled={isSaving}>
                 {isSaving && <Loader className="mr-2 h-4 w-4 animate-spin" />}
-                Save
+                {t('Save')}
               </Button>
             </form>
           </Form>

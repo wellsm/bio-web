@@ -10,11 +10,13 @@ import { AddSocialMedia } from "./add-social-media";
 import { EditSocialMedia } from "./edit-social-media";
 import { http } from "@/lib/api";
 import { useBioStore } from "../stores/bio";
+import { useTranslation } from "react-i18next";
 
 export function SocialMedias() {
   const [medias, setMedias] = useState<ISocialMedia[]>([]);
   const [isEditing, setIsEditing] = useState<Record<number, boolean>>({});
   const { onBioChange } = useBioStore();
+  const { t } = useTranslation();
 
   const getMedias = useCallback(() => {
     http.get("social-medias").then(({ data }) => setMedias(data));
@@ -33,6 +35,8 @@ export function SocialMedias() {
     const payload = medias.map((media, i) => ({ id: media.id, order: i + 1 }));
 
     await http.put("social-medias/ordering", payload);
+
+    onBioChange()
   };
 
   const onSaveMedia = (id: number) => {
@@ -44,13 +48,13 @@ export function SocialMedias() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Social Medias</CardTitle>
+        <CardTitle>{t('Social Medias')}</CardTitle>
       </CardHeader>
       <CardContent>
         <AddSocialMedia onSave={() => getMedias()}>
           <Button className="w-full mb-4">
             <PlusCircle className="w-4 h-4 mr-2" />
-            Add Social Media
+            {t('Add Social Media')}
           </Button>
         </AddSocialMedia>
 

@@ -7,6 +7,7 @@ import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import { DialogClose, DialogTrigger } from "@radix-ui/react-dialog";
+import { useTranslation } from "react-i18next";
 
 const ICONS: IIcon[] = [
   { family: "fab", icon: "dribbble" },
@@ -69,6 +70,7 @@ type IconPickerProps = {
 
 export function IconPicker({ children, onIconSelect }: IconPickerProps) {
   const [icons, setIcons] = useState<IIcon[]>(ICONS);
+  const { t } = useTranslation();
 
   function onTypeSearch({
     currentTarget,
@@ -95,14 +97,14 @@ export function IconPicker({ children, onIconSelect }: IconPickerProps) {
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
                 type="search"
-                placeholder="Search Icon"
+                placeholder={t("Search Icon")}
                 className="pl-8 py-4 w-full text-gray-900 focus-visible:ring-0 border-zinc-200 focus-visible:outline-none"
                 onKeyUp={onTypeSearch}
                 onChange={onTypeSearch}
               />
             </div>
             <DialogClose asChild>
-              <Button variant="outline" onClick={() => setTimeout(() => setIcons(ICONS), 500)}>Cancel</Button>
+              <Button variant="outline" onClick={() => setTimeout(() => setIcons(ICONS), 500)}>{t('Cancel')}</Button>
             </DialogClose>
           </div>
         </DialogHeader>

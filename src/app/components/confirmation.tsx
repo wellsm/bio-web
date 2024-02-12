@@ -9,9 +9,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+
 import { http } from "@/lib/api";
 import { useState } from "react";
 import { useToastStore } from "../stores/toast";
+import { useTranslation } from "react-i18next";
 
 type ConfirmationProps = {
   title?: string;
@@ -34,6 +36,7 @@ export function Confirmation({
 }: ConfirmationProps) {
   const [isOpen, setIsOpen] = useState(true);
   const { openToast } = useToastStore();
+  const { t } = useTranslation();
 
   const onOpenChange = (open: boolean) => {
     setIsOpen(open);
@@ -70,15 +73,15 @@ export function Confirmation({
     <AlertDialog open={isOpen} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>{title}</AlertDialogTitle>
-          <AlertDialogDescription>{description}</AlertDialogDescription>
+          <AlertDialogTitle>{t(title)}</AlertDialogTitle>
+          <AlertDialogDescription>{t(description)}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel onClick={() => handleCancel()}>
-            Cancel
+            {t('Cancel')}
           </AlertDialogCancel>
           <AlertDialogAction onClick={() => handleConfirm()}>
-            Continue
+            {t('Continue')}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
