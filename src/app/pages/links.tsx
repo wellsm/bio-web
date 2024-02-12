@@ -11,6 +11,7 @@ import { IPagination } from "@/app/interfaces/pagination";
 import { LinkFilter } from "@/app/components/link-filter";
 import { useSearchParams } from "react-router-dom";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useBioStore } from "../stores/bio";
 
 type LinkResponse = {
   meta: IPagination;
@@ -20,6 +21,7 @@ type LinkResponse = {
 export function Links() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [response, setResponse] = useState<LinkResponse>({} as LinkResponse);
+  const { onBioChange } = useBioStore();
 
   const applyFilters = (values: any) => {
     const params = Object.keys(values)
@@ -35,6 +37,11 @@ export function Links() {
 
   const changePage = (page: number) => {
     setSearchParams(new URLSearchParams({ ...query, page: page.toString() }));
+  };
+
+  const onSaveLink = () => {
+    getLinks();
+    onBioChange();
   };
 
   const getLinks = useCallback(() => {
@@ -54,7 +61,7 @@ export function Links() {
       </div>
       <div className="col-span-1 lg:col-span-5">
         <div className="flex flex-col justify-center items-center mx-auto max-w-screen-md lg:max-w-screen-lg">
-          <AddLink onSave={() => getLinks()}>
+          <AddLink onSave={() => onSaveLink()}>
             <Button className="w-full mb-2">
               <PlusCircle className="w-4 h-4 mr-2" />
               Add Link
@@ -63,7 +70,7 @@ export function Links() {
           <div className="links w-full mt-2">
             {response?.data?.length > 0 ? (
               response.data.map((link) => (
-                <Link key={link.id} {...link} onChange={() => getLinks()} />
+                <Link key={link.id} {...link} onChange={() => onSaveLink()} />
               ))
             ) : (
               <Alert>

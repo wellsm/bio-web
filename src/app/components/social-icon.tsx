@@ -18,7 +18,7 @@ export function SocialIcon({ url, children, onClick }: SocialIconProps) {
           variant: "link",
           size: "icon",
         }),
-        "rounded-full w-8 h-8 sm:w-12 sm:h-12 hover:scale-110 text-[#333]"
+        "rounded-full w-8 h-8 sm:w-10 sm:h-10 hover:scale-110 text-[#333]"
       )}
     >
       {children}

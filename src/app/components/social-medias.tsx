@@ -9,10 +9,12 @@ import { ISocialMedia } from "../interfaces/social-media";
 import { AddSocialMedia } from "./add-social-media";
 import { EditSocialMedia } from "./edit-social-media";
 import { http } from "@/lib/api";
+import { useBioStore } from "../stores/bio";
 
 export function SocialMedias() {
   const [medias, setMedias] = useState<ISocialMedia[]>([]);
   const [isEditing, setIsEditing] = useState<Record<number, boolean>>({});
+  const { onBioChange } = useBioStore();
 
   const getMedias = useCallback(() => {
     http.get("social-medias").then(({ data }) => setMedias(data));
@@ -36,6 +38,7 @@ export function SocialMedias() {
   const onSaveMedia = (id: number) => {
     closeEdit(id);
     getMedias()
+    onBioChange()
   }
 
   return (

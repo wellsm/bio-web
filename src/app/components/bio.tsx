@@ -10,6 +10,7 @@ import { http } from "@/lib/api";
 import { IBio } from "../interfaces/bio";
 import { cn, src } from "@/lib/utils";
 import { Loading } from "./loading";
+import { useBioStore } from "../stores/bio";
 
 export enum BioMode {
   Default = 'default',
@@ -24,9 +25,10 @@ type BioProps = {
 export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
   const [bio, setBio] = useState<IBio | null>(null);
   const [search, setSearch] = useState<string | null>(null);
+  const [bioChanges] = useBioStore(state => [state.bioChanges]);
 
   const links = search ? bio?.links.filter((link) =>
-    link.title.toLowerCase().includes(search)
+    link.title.toLowerCase().substring(0, search.length) == search.toLowerCase()
   ) : bio?.links;
 
   // TODO - Interaction receive ID From Controls Quantity Requests
@@ -38,9 +40,9 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
     http.get("bio").then(({ data }) => {
       setBio(data);
 
-      interact(1, 'view');
+      bioChanges == 0 && interact(1, 'view');
     });
-  }, []);
+  }, [bioChanges]);
 
   function onTypeSearch({
     currentTarget,
@@ -62,7 +64,7 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
         <h6 className={cn(mode == BioMode.Mobile ? "text-base font-semibold mt-3" : "md:mt-4 sm:text-xl sm:font-bold", "text-base font-semibold text-slate-950")}>
           {bio.profile.name}
         </h6>
-        <div className={cn(mode == BioMode.Mobile ? "mt-2 gap-2" : "md:mt-4 sm:gap-0", "mt-2 flex justify-center gap-2")}>
+        <div className={cn(mode == BioMode.Mobile ? "mt-2" : "md:mt-4 sm:gap-0", "mt-2 flex justify-center")}>
           {bio.medias.map((media, index) => (
             <SocialIcon key={index} url={media.url} onClick={() => interact(media.id, 'media')}>
               <FontAwesomeIcon

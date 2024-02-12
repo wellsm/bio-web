@@ -19,6 +19,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToastStore } from "../stores/toast";
 import { Loader } from "lucide-react";
+import { useBioStore } from "../stores/bio";
 
 const ACCEPTED_IMAGE_TYPES = [
   "image/jpeg",
@@ -41,6 +42,7 @@ export function Profile() {
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [profile, setProfile] = useState<any>({});
   const { openToast } = useToastStore();
+  const { onBioChange } = useBioStore();
 
   const form = useForm<z.infer<typeof profileSchema>>({
     resolver: zodResolver(profileSchema),
@@ -66,7 +68,8 @@ export function Profile() {
 
     setIsSaving(false);
 
-    setProfile({ ...profile })
+    setProfile({ ...profile });
+    onBioChange()
   };
 
   useEffect(() => {
