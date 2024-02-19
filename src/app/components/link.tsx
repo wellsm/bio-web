@@ -3,7 +3,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
-import { Pencil, Trash } from "lucide-react";
+import { Pencil, Pin, PinOff, Trash } from "lucide-react";
 import { ILink } from "../interfaces/link";
 import { EditLink } from "./edit-link";
 import { useState } from "react";
@@ -23,10 +23,12 @@ export function Link({
   url,
   thumbnail,
   active,
+  fixed,
   onChange,
 }: LinkProps) {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  const [isFixed, setIsFixed] = useState<boolean>(fixed);
   const { openToast } = useToastStore();
   const { onBioChange } = useBioStore();
 
@@ -51,6 +53,19 @@ export function Link({
       openToast("Toggle Failed", data.message);
     }
   };
+
+  const onFixedChange = async () => {
+    try {
+      await http.put(`links/${id}/toggle/fixed`);
+
+      onBioChange();
+      setIsFixed(!isFixed);
+    } catch (error: any) {
+      const { data } = error.response;
+
+      openToast("Toggle Failed", data.message);
+    }
+  }
 
   return (
     <Card className="mb-2 bg-zinc-50 dark:bg-zinc-900">
@@ -96,7 +111,7 @@ export function Link({
           </Button>
           {isEditing && (
             <EditLink
-              link={{ id, title, url, thumbnail }}
+              link={{ id, title, url, thumbnail, fixed }}
               onSave={() => onLinkChange()}
               isOpen={true}
               onClose={() => setIsEditing(false)}
@@ -108,6 +123,14 @@ export function Link({
               defaultChecked={active}
               onCheckedChange={onActiveChange}
             />
+          </div>
+          
+          <div className="flex flex-col items-center mr-3 cursor-pointer" onClick={() => onFixedChange()}>
+            {
+              isFixed
+              ? <Pin className="w-6 h-6 fill-primary"/>
+              : <PinOff className="w-6 h-6"/>
+            }
           </div>
         </div>
       </CardContent>

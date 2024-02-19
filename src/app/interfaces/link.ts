@@ -4,4 +4,5 @@ export interface ILink {
     url: string
     thumbnail: string
     active?: boolean
+    fixed: boolean
 }

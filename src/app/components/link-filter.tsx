@@ -9,6 +9,8 @@ import {
   ChevronUp,
   Circle,
   Loader,
+  ThumbsDown,
+  ThumbsUp,
 } from "lucide-react";
 import { useState } from "react";
 import { z } from "zod";
@@ -28,12 +30,14 @@ const linkFilterSchema = z.object({
   title: z.string(),
   url: z.string(),
   active: z.string(),
+  fixed: z.string(),
 });
 
 export type LinkFilterFormProps = {
   title?: string;
   url?: string;
   active?: string;
+  fixed?: string;
 };
 
 type LinkFilterProps = LinkFilterFormProps & {
@@ -44,6 +48,7 @@ export function LinkFilter({
   title = "",
   url = "",
   active = "",
+  fixed = "",
   onFilter,
 }: LinkFilterProps) {
   const [isFiltering, setIsFiltering] = useState<boolean>(false);
@@ -55,6 +60,7 @@ export function LinkFilter({
       title,
       url,
       active,
+      fixed,
     },
   });
 
@@ -63,7 +69,7 @@ export function LinkFilter({
   }
 
   return (
-    <Card>
+    <Card className="bg-zinc-950">
       <CardHeader className="p-4">
         <CardTitle className="flex items-center justify-between">
           <span className="mt-0 lg:mt-2">{t("Filters")}</span>
@@ -159,6 +165,38 @@ export function LinkFilter({
                       <ToggleGroupItem value="0" className="grow w-full">
                         <Circle className="h-4 w-4 text-red-500 mr-3" />
                         <span className="text-xs">{t("Inactive")}</span>
+                      </ToggleGroupItem>
+                    </ToggleGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            ></FormField>
+
+            <FormField
+              control={form.control}
+              name="fixed"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("Fixed Link")}</FormLabel>
+                  <FormControl>
+                    <ToggleGroup
+                      id="fixed"
+                      type="single"
+                      className="flex flex-row lg:flex-col xl:flex-row justify-betweenn mt-2"
+                      variant="outline"
+                      {...field}
+                      onValueChange={(value: string) =>
+                        form.setValue("fixed", value)
+                      }
+                    >
+                      <ToggleGroupItem value="1" className="grow w-full">
+                        <ThumbsUp className="h-4 w-4 text-green-500 mr-3" />
+                        <span className="text-xs">{t("Yes")}</span>
+                      </ToggleGroupItem>
+                      <ToggleGroupItem value="0" className="grow w-full">
+                        <ThumbsDown className="h-4 w-4 text-red-500 mr-3" />
+                        <span className="text-xs">{t("No")}</span>
                       </ToggleGroupItem>
                     </ToggleGroup>
                   </FormControl>
