@@ -53,6 +53,11 @@
         "Enable Search": "Habilitar Busca",
         "With search, your users can filter your links by link title": "Com a busca, seus usuários pode filtrar seus links pelo seu título",
         "Save Preferences": "Salvar Preferências",
-        "Search Links, Products": "Procurar Links, Produtos"
+        "Search Links, Products": "Procurar Links, Produtos",
+        "Share this Page": "Compartilhar esta Página",
+        "Share this link via": "Compartilhar este link via",
+        "Or copy link": "Ou copiar o link",
+        "Copy": "Copiar",
+        "Copied": "Copiado"
     }
 }
