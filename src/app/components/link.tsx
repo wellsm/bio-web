@@ -75,11 +75,11 @@ export function Link({
             <Avatar className="mr-4 mb-2 sm:mb-0">
               <AvatarImage src={src(thumbnail)} />
             </Avatar>
-            <div>
+            <div className="truncate">
               <CardTitle className="text-sm font-medium">{title}</CardTitle>
 
               <a
-                className="text-muted-foreground text-sm xl:text-base block truncate"
+                className="text-muted-foreground text-sm xl:text-base block"
                 href={url}
               >
                 {url}

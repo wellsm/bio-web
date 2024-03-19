@@ -87,7 +87,7 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
             "h-20 w-20"
           )}
         >
-          <AvatarImage src={src(bio.profile.avatar)} />
+          {bio.profile.avatar && <AvatarImage src={src(bio.profile.avatar)} />}
           <AvatarFallback>{fallback(bio.profile.name)}</AvatarFallback>
         </Avatar>
         <h6
