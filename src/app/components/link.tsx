@@ -71,15 +71,14 @@ export function Link({
     <Card className="mb-2 bg-zinc-50 dark:bg-zinc-900">
       <CardContent className="grid grid-cols-7 py-2 px-4 relative">
         <div className="col-span-7 xl:col-span-5">
-          <div className="flex flex-col  sm:flex-row">
+          <div className="flex flex-col sm:flex-row sm:w-[90%] md:w-[85%]">
             <Avatar className="mr-4 mb-2 sm:mb-0">
               <AvatarImage src={src(thumbnail)} />
             </Avatar>
-            <div className="truncate">
+            <div className="w-full">
               <CardTitle className="text-sm font-medium">{title}</CardTitle>
-
               <a
-                className="text-muted-foreground text-sm xl:text-base block"
+                className="text-muted-foreground text-sm xl:text-base block truncate"
                 href={url}
               >
                 {url}

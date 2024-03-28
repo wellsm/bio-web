@@ -85,7 +85,7 @@ export function NavBar() {
             <DropdownMenuTrigger asChild>
               {profile && (
                 <Avatar className="h-8 w-8 cursor-pointer hover:ring-2 hover:ring-primary">
-                  <AvatarImage src={src(profile.avatar)} />
+                  {profile.avatar && <AvatarImage src={src(profile.avatar)} />}
                   <AvatarFallback>{fallback(profile.name)}</AvatarFallback>
                 </Avatar>
               )}
