@@ -5,7 +5,6 @@ import { http } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { useBioStore } from "../stores/bio";
 import { useTranslation } from "react-i18next";
-import { Combobox } from "./combobox";
 
 export function Configs() {
   const [configs, setConfigs] = useState<any>();
@@ -36,17 +35,13 @@ export function Configs() {
                 {t(config.description)}
               </span>
             </Label>
-            {config.options.length === 0 ? (
-              <Switch
-                id={config.key}
-                defaultChecked={config.value === "1"}
-                onCheckedChange={(checked) =>
-                  onChangeConfig(config.key, checked)
-                }
-              />
-            ) : (
-              <Combobox selected={config.value} values={config.options}/>
-            )}
+            <Switch
+              id={config.key}
+              defaultChecked={config.value === "1"}
+              onCheckedChange={(checked) =>
+                onChangeConfig(config.key, checked)
+              }
+            />
           </div>
         ))}
     </>
