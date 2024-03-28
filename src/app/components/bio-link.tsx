@@ -55,8 +55,8 @@ export function BioLink({
             />
             <CardTitle
               className={cn(
-                mode == BioMode.Mobile ? "text-xs" : "text-base",
-                "text-slate-700 font-medium text-center w-[70%] lg:w-[80%]"
+                mode == BioMode.Mobile ? "text-xs" : "text-base lg:w-[80%]",
+                "text-slate-700 font-medium text-center w-[70%]"
               )}
             >
               {title}

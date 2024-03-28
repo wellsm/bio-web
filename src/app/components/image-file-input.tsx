@@ -30,7 +30,7 @@ export function ImageFileInput({
       <div className="flex items-center justify-center w-full mt-3">
         <label
           htmlFor="thumbnail"
-          className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-700 dark:bg-gray-600 hover:bg-gray-100 dark:border-gray-500 dark:hover:border-gray-400 dark:hover:bg-gray-500"
+          className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-700 dark:bg-gray-600 hover:bg-gray-100 dark:border-gray-500 dark:hover:border-gray-400 dark:hover:bg-gray-500 relative"
         >
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
             <UploadCloud className="h-7 w-7 mb-2" />
@@ -45,7 +45,7 @@ export function ImageFileInput({
           <input
             id="thumbnail"
             type="file"
-            className="hidden"
+            className="cursor-pointer block opacity-0 w-full h-full p-10 z-50 absolute"
             accept="image/*"
             onChange={({ target }) => {
               const files = target.files;
