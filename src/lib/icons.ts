@@ -50,9 +50,10 @@ import {
   faGitlab,
   faGitlabSquare,
   faBitbucket,
+  faShopify,
 } from "@fortawesome/free-brands-svg-icons";
-import { faEnvelope as farEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faEnvelope as fasEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope as farEnvelope, } from "@fortawesome/free-regular-svg-icons";
+import { faEnvelope as fasEnvelope, faShop, faCartShopping, faBagShopping } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
   faDribbble,
@@ -106,5 +107,9 @@ library.add(
   faGitlabSquare,
   faBitbucket,
   farEnvelope,
-  fasEnvelope
+  fasEnvelope,
+  faShopify,
+  faShop,
+  faCartShopping,
+  faBagShopping
 );

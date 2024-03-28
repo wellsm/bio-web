@@ -61,6 +61,10 @@ const ICONS: IIcon[] = [
   { family: "fab", icon: "gitlab" },
   { family: "fab", icon: "square-gitlab" },
   { family: "fab", icon: "bitbucket" },
+  { family: "fas", icon: "shop" },
+  { family: "fab", icon: "shopify" },
+  { family: "fas", icon: "cart-shopping" },
+  { family: "fas", icon: "bag-shopping" },
 ];
 
 type IconPickerProps = {
