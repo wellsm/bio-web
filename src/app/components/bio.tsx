@@ -21,6 +21,11 @@ export enum BioMode {
   Mobile = "mobile",
 }
 
+export enum BioLayout {
+  List = "list",
+  Grid = "grid",
+}
+
 type BioProps = {
   interaction?: boolean;
   mode?: BioMode;
@@ -30,7 +35,9 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
   const [bio, setBio] = useState<IBio | null>(null);
   const [search, setSearch] = useState<string | null>(null);
   const [bioChanges] = useBioStore((state) => [state.bioChanges]);
-  const [shareText, setShareText] = useState<string|null>(null);
+  const [shareText, setShareText] = useState<string | null>(null);
+
+  const layout: BioLayout = (bio?.configs?.layout ?? BioLayout.List) as BioLayout;
 
   const links = search
     ? bio?.links.filter(
@@ -64,7 +71,7 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
   }
 
   return (
-    <div className="flex justify-center py-10 min-h-screen bg-gray-50 px-3">
+    <div className="flex justify-center py-8 min-h-screen bg-gray-50 px-3">
       <div className="flex flex-col items-center max-w-screen-sm w-full relative">
         <Button
           variant="ghost"
@@ -93,9 +100,9 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
         <h6
           className={cn(
             mode == BioMode.Mobile
-              ? "text-base font-semibold mt-3"
-              : "mt-4 text-xl font-bold",
-            "text-slate-950"
+              ? "text-base font-semibold"
+              : "text-xl font-bold",
+            "mt-3 text-slate-950"
           )}
         >
           {bio.profile.name}
@@ -103,7 +110,7 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
         <div
           className={cn(
             mode == BioMode.Mobile ? "gap-1" : "gap-3",
-            "mt-4 flex justify-center"
+            "mt-2 flex justify-center"
           )}
         >
           {bio.medias.map((media, index) => (
@@ -114,19 +121,12 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
             >
               <FontAwesomeIcon
                 icon={[media.icon.family, media.icon.icon]}
-                className={cn(
-                  mode == BioMode.Mobile ? "h-6 w-6" : "h-7 w-7"
-                )}
+                className={cn(mode == BioMode.Mobile ? "h-6 w-6" : "h-7 w-7")}
               />
             </SocialIcon>
           ))}
         </div>
-        <div
-          className={cn(
-            mode == BioMode.Mobile ? "mt-3" : "mt-6",
-            "w-full"
-          )}
-        >
+        <div className="mt-3 w-full">
           {bio.configs["enable-search"] === "1" && (
             <div className="relative mb-3">
               <Search
@@ -147,19 +147,22 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
               />
             </div>
           )}
-
-          {links?.map((link, index) => (
-            <BioLink
-              id={link.id}
-              interaction={interaction}
-              mode={mode}
-              key={index}
-              thumbnail={src(link.thumbnail)}
-              title={link.title}
-              url={link.url}
-              onShare={(link) => setShareText(link)}
-            />
-          ))}
+          
+          <div className={cn("grid", bio.configs.layout == BioLayout.Grid && (mode == BioMode.Default ? "grid-cols-3 gap-2 md:grid-cols-3 lg:grid-cols-4" : "grid-cols-3 gap-2"))}>
+            {links?.map((link, index) => (
+              <BioLink
+                id={link.id}
+                interaction={interaction}
+                mode={mode}
+                key={index}
+                thumbnail={src(link.thumbnail)}
+                title={link.title}
+                url={link.url}
+                onShare={(link) => setShareText(link)}
+                layout={layout}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

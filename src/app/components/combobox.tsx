@@ -15,15 +15,16 @@ type SelectItem = {
 type ComboboxProps = {
   values: SelectItem[];
   selected: string;
+  onChange: (value: string) => void
 };
 
-export function Combobox({ values, selected }: ComboboxProps) {
+export function Combobox({ values, selected, onChange }: ComboboxProps) {
   const { t } = useTranslation();
 
   const placeholder = values.find((item) => item.key === selected)?.value;
 
   return (
-    <Select>
+    <Select onValueChange={onChange}>
       <SelectTrigger className="w-[180px]">
         <SelectValue
           placeholder={placeholder && t(placeholder)}
@@ -32,7 +33,7 @@ export function Combobox({ values, selected }: ComboboxProps) {
       </SelectTrigger>
       <SelectContent>
         {values.map((item: SelectItem) => (
-          <SelectItem value={item.key}>{t(item.value)}</SelectItem>
+          <SelectItem key={item.key} value={item.key}>{t(item.value)}</SelectItem>
         ))}
       </SelectContent>
     </Select>

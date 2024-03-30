@@ -1,5 +1,4 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SocialMedias } from "@/app/components/social-medias";
 import { Profile } from "@/app/components/profile";
 import { Configs } from "../components/configs";
@@ -29,11 +28,6 @@ export function Settings() {
             <CardContent className="grid gap-6">
               <Configs/>
             </CardContent>
-            <CardFooter>
-              <Button className="w-full">
-                {t('Save Preferences')}
-              </Button>
-            </CardFooter>
           </Card>
         </div>
       </div>
