@@ -13,11 +13,11 @@ export function Settings() {
         <h2 className="text-3xl font-bold tracking-tight">{t('Settings')}</h2>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="col-span-2 xl:col-span-1">
+        <div className="col-span-2 xl:col-span-1 space-y-4">
           <Profile/>
+          <SocialMedias/>
         </div>
         <div className="col-span-2 xl:col-span-1 space-y-4">
-          <SocialMedias/>
           <Card>
             <CardHeader>
               <CardTitle>{t('Preferences')}</CardTitle>

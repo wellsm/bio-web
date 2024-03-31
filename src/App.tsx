@@ -7,8 +7,8 @@ import { Register } from "@/app/pages/register";
 import { ThemeProvider } from "@/app/contexts/theme";
 import { Links } from "@/app/pages/links";
 import { Index } from "@/app/pages";
-import { Settings } from "./app/pages/settings";
-import { Toaster } from "./components/ui/sonner";
+import { Settings } from "@/app/pages/settings";
+import { Toaster } from "@/components/ui/sonner";
 
 export function App() {
   return (

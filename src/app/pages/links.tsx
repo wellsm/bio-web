@@ -59,6 +59,9 @@ export function Links() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-7 p-4 md:pl-8 gap-4">
       <div className="col-span-1 lg:col-span-2 w-full">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-3xl font-bold tracking-tight">{t("Links")}</h2>
+        </div>
         <LinkFilter onFilter={applyFilters} {...query} />
       </div>
       <div className="col-span-1 lg:col-span-5">

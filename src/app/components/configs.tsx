@@ -6,6 +6,13 @@ import { useEffect, useState } from "react";
 import { useBioStore } from "../stores/bio";
 import { useTranslation } from "react-i18next";
 import { Combobox } from "./combobox";
+import { Input } from "@/components/ui/input";
+
+enum ConfigType {
+  Toggle = "toggle",
+  Select = "select",
+  InputText = "input:text",
+}
 
 export function Configs() {
   const [configs, setConfigs] = useState<any>();
@@ -26,27 +33,47 @@ export function Configs() {
     <>
       {configs &&
         configs.map((config: any) => (
-          <div
-            className="flex items-center justify-between space-x-2"
-            key={config.key}
-          >
-            <Label htmlFor={config.key} className="flex flex-col space-y-1">
+          <div className="grid grid-cols-2" key={config.key}>
+            <Label
+              htmlFor={config.key}
+              className="flex flex-col space-y-1 items-start"
+            >
               <span>{t(config.name)}</span>
               <span className="font-normal leading-snug text-muted-foreground">
                 {t(config.description)}
               </span>
             </Label>
-            {config.options && config.options.length > 0 ? (
-              <Combobox selected={config.value} values={config.options} onChange={(value) => onChangeConfig(config.key, value)} />
-            ) : (
-              <Switch
-                id={config.key}
-                defaultChecked={config.value === "1"}
-                onCheckedChange={(checked) =>
-                  onChangeConfig(config.key, checked)
-                }
-              />
-            )}
+            <div className="flex justify-end">
+              {(config.type as ConfigType) == ConfigType.Toggle && (
+                <Switch
+                  id={config.key}
+                  defaultChecked={config.value === "1"}
+                  onCheckedChange={(checked) =>
+                    onChangeConfig(config.key, checked)
+                  }
+                />
+              )}
+
+              {(config.type as ConfigType) == ConfigType.Select &&
+                config.options &&
+                config.options.length > 0 && (
+                  <Combobox
+                    selected={config.value}
+                    values={config.options}
+                    onChange={(value) => onChangeConfig(config.key, value)}
+                  />
+                )}
+
+              {(config.type as ConfigType) == ConfigType.InputText && (
+                <Input
+                  className="w-full"
+                  defaultValue={config.value}
+                  onChange={({ target }) =>
+                    onChangeConfig(config.key, target.value)
+                  }
+                />
+              )}
+            </div>
           </div>
         ))}
     </>

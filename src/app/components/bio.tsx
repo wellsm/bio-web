@@ -15,6 +15,7 @@ import { useBioStore } from "@/app/stores/bio";
 import { t } from "i18next";
 import { Button } from "@/components/ui/button";
 import { PaginationEllipsis } from "@/components/ui/pagination";
+import { Helmet } from "react-helmet";
 
 export enum BioMode {
   Default = "default",
@@ -73,6 +74,20 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
 
   return (
     <div className="flex justify-center py-8 min-h-screen bg-gray-50 px-3">
+      {mode == BioMode.Default && (
+        <Helmet>
+          <title>{bio.profile.name} - Bio</title>
+
+          <meta name="theme-color" content="#FFFFFF"/>
+
+          {bio.configs["tag-pinterest"].trim() != "" && (
+            <meta
+              name="p:domain_verify"
+              content={bio.configs["tag-pinterest"]}
+            />
+          )}
+        </Helmet>
+      )}
       <div className="flex flex-col items-center max-w-screen-sm w-full relative">
         <Button
           variant="ghost"
