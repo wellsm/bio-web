@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { DropdownMenuLabel } from "@radix-ui/react-dropdown-menu";
 import { LANGUAGE } from "@/languages/i18n";
+import { buttonVariants } from "@/components/ui/button";
 
 export function NavBar() {
   const location = useLocation();
@@ -45,7 +46,7 @@ export function NavBar() {
   return (
     <div className="border-b">
       <div className="flex h-16 items-center px-4">
-        <nav className="flex items-center space-x-4 lg:space-x-6 mx-6">
+        <nav className="flex items-center space-x-4 lg:space-x-6 lg:mx-6">
           <Link
             to="/dashboard"
             className={cn(
@@ -81,6 +82,9 @@ export function NavBar() {
           </Link>
         </nav>
         <div className="ml-auto flex items-center space-x-2">
+          <div className="mr-2">
+            <a href="/" target="_blank" className={buttonVariants({ variant: 'outline', size: 'sm' })}>Ir na Bio</a>
+          </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               {profile && (
