@@ -9,7 +9,7 @@ import { Search } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Input } from "@/components/ui/input";
 import { http } from "@/lib/api";
-import { IBio } from "@/app/interfaces/bio";
+import { IBio, IBioLink } from "@/app/interfaces/bio";
 import { cn, fallback, src } from "@/lib/utils";
 import { useBioStore } from "@/app/stores/bio";
 import { t } from "i18next";
@@ -37,13 +37,12 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
   const [bioChanges] = useBioStore((state) => [state.bioChanges]);
   const [shareText, setShareText] = useState<string | null>(null);
 
-  const layout: BioLayout = (bio?.configs?.layout ?? BioLayout.List) as BioLayout;
+  const layout: BioLayout = (bio?.configs?.layout ??
+    BioLayout.List) as BioLayout;
 
   const links = search
-    ? bio?.links.filter(
-        (link) =>
-          link.title.toLowerCase().substring(0, search.length) ==
-          search.toLowerCase()
+    ? bio?.links.filter((link: IBioLink) =>
+        link.title.toLowerCase().includes(search.toLowerCase())
       )
     : bio?.links;
 
@@ -63,6 +62,8 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
   function onTypeSearch({
     currentTarget,
   }: React.SyntheticEvent<HTMLInputElement>) {
+    console.log(currentTarget.value.toLowerCase());
+
     setSearch(currentTarget.value.toLowerCase());
   }
 
@@ -147,8 +148,16 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
               />
             </div>
           )}
-          
-          <div className={cn("grid", bio.configs.layout == BioLayout.Grid && (mode == BioMode.Default ? "grid-cols-3 gap-2 md:grid-cols-3 lg:grid-cols-4" : "grid-cols-3 gap-2"))}>
+
+          <div
+            className={cn(
+              "grid",
+              bio.configs.layout == BioLayout.Grid &&
+                (mode == BioMode.Default
+                  ? "grid-cols-3 gap-2 md:grid-cols-3 lg:grid-cols-4"
+                  : "grid-cols-3 gap-2")
+            )}
+          >
             {links?.map((link, index) => (
               <BioLink
                 id={link.id}

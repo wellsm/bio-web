@@ -11,7 +11,7 @@ interface IBioProfile {
     avatar: string;
 }
 
-interface IBioLink {
+export interface IBioLink {
     id: number
     title: string
     url: string
