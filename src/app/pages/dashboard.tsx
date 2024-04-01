@@ -9,19 +9,43 @@ import { http } from "@/lib/api";
 import { fallback, src } from "@/lib/utils";
 import { Metric } from "../components/metric";
 import { useTranslation } from "react-i18next";
+import { DateRangePicker } from "../components/date-range-picker";
+import { DateRange } from "react-day-picker";
+import { Button } from "@/components/ui/button";
+import { format } from "@/lib/date-fns";
 
 export function Dashboard() {
   const [data, setData] = useState<any>({});
+  const [range, setRange] = useState<DateRange | undefined>();
   const { t } = useTranslation();
 
+  const getOverview = () => {
+    const query: any = range
+      ? {
+          range: `${format(range.from as Date, "yyyy-MM-dd")} - ${format(
+            range.to as Date,
+            "yyyy-MM-dd"
+          )}`.trim(),
+        }
+      : "";
+
+    http.get("overview", query).then(({ data }) => setData(data));
+  };
+
   useEffect(() => {
-    http.get("overview").then(({ data }) => setData(data));
+    getOverview();
   }, []);
 
   return (
     <div className="flex-1 space-y-4 p-4 pt-4 sm:px-8">
       <div className="flex items-center justify-between space-y-2">
-        <h2 className="text-3xl font-bold tracking-tight">{t('Dashboard')}</h2>
+        <h2 className="text-3xl font-bold tracking-tight">{t("Dashboard")}</h2>
+        <div className="flex items-center justify-between space-x-2">
+          <DateRangePicker onSelect={(range) => setRange(range)} />
+          <Button onClick={() => getOverview()} disabled={range === undefined}>
+            {t("Filter")}
+          </Button>
+        </div>
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Metric title="Views" data={data?.views ?? 0} />
@@ -32,7 +56,9 @@ export function Dashboard() {
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-7">
         <Card className="col-span-3">
           <CardHeader>
-            <CardTitle>{t('Overview')} ({t('Clicks')})</CardTitle>
+            <CardTitle>
+              {t("Overview")} ({t("Clicks")})
+            </CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
             <Overview data={data.overview} />
@@ -49,9 +75,7 @@ export function Dashboard() {
                   <div className="flex items-center w-full" key={link.id}>
                     <Avatar className="h-9 w-9">
                       <AvatarImage src={src(link.thumbnail)} alt="Avatar" />
-                      <AvatarFallback>
-                        {fallback(link.column)}
-                      </AvatarFallback>
+                      <AvatarFallback>{fallback(link.column)}</AvatarFallback>
                     </Avatar>
                     <div className="ml-4 space-y-1 w-full">
                       <p className="text-sm text-muted-foreground leading-none">
@@ -67,7 +91,7 @@ export function Dashboard() {
         </Card>
         <Card className="col-span-3 lg:col-span-2">
           <CardHeader>
-            <CardTitle>Traffic Out ({t('Social Media')})</CardTitle>
+            <CardTitle>Traffic Out ({t("Social Media")})</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
