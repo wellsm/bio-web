@@ -126,7 +126,7 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
         <div
           className={cn(
             mode == BioMode.Mobile ? "gap-1" : "gap-3",
-            "mt-2 flex justify-center"
+            "mt-3 flex justify-center"
           )}
         >
           {bio.medias.map((media, index) => (
@@ -166,7 +166,7 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
 
           <div
             className={cn(
-              "grid",
+              "grid mt-2",
               bio.configs.layout == BioLayout.Grid &&
                 (mode == BioMode.Default
                   ? "grid-cols-3 gap-2 md:grid-cols-3 lg:grid-cols-4"
