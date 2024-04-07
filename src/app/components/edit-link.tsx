@@ -8,7 +8,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { ImageFileInput } from "./image-file-input";
 import { ILink } from "@/app/interfaces/link";
 import { z } from "zod";
@@ -29,7 +29,6 @@ import { src } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 
 type EditLinkProps = {
-  children?: ReactNode;
   link: ILink;
   onSave(): void;
   onClose(): void;
@@ -103,7 +102,7 @@ export function EditLink({
 
   return (
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
-      <SheetContent>
+      <SheetContent className="overflow-y-auto scrollbar-thin dark:scrollbar-thumb-gray-50 dark:scrollbar-track-zinc-900">
         <SheetHeader>
           <SheetTitle>{t('Edit Link')}</SheetTitle>
           <SheetDescription>

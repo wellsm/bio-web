@@ -69,7 +69,7 @@ export function LinkFilter({
   }
 
   return (
-    <Card className="bg-zinc-950">
+    <Card className="dark:bg-zinc-950">
       <CardHeader className="p-4">
         <CardTitle className="flex items-center justify-between">
           <span className="mt-0 lg:mt-2">{t("Filters")}</span>

@@ -71,6 +71,15 @@
         "Or copy link": "Ou copiar o link",
         "Copy": "Copiar",
         "Copied": "Copiado",
-        "Pick a date": "Escolha uma data"
+        "Pick a date": "Escolha uma data",
+        "Collections": "Coleções",
+        "Add Collection": "Adicionar Coleção",
+        "Add new collection here. Click save when you're done.": "Adicionar nova coleção. Clique em Salvar quando terminar",
+        "Edit your collection here. Click save when you're done.": "Edite sua coleção aqui. Clique para salvar quando terminar",
+        "Description": "Descrição",
+        "Select Link": "Selecionar Link",
+        "Search Link": "Buscar Link",
+        "Too much results": "Muitos resultados encontrados",
+        "Use search input to filter results": "Use o campo de busca para filtrar"
     }
 }

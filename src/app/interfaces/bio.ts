@@ -1,3 +1,4 @@
+import { ICollection } from "./collection";
 import { IIcon } from "./icon";
 
 interface IBioSocialMedia {
@@ -21,6 +22,14 @@ export interface IBioLink {
 export interface IBio {
     profile: IBioProfile
     links: IBioLink[]
+    medias: IBioSocialMedia[],
+    configs: Record<string, string>
+}
+
+
+export interface IBioCollection {
+    profile: IBioProfile
+    collection: ICollection,
     medias: IBioSocialMedia[],
     configs: Record<string, string>
 }

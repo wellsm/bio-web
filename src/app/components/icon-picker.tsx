@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import { DialogClose, DialogTrigger } from "@radix-ui/react-dialog";
 import { useTranslation } from "react-i18next";
+import { IconName } from "@fortawesome/fontawesome-svg-core";
 
 const ICONS: IIcon[] = [
   { family: "fab", icon: "dribbble" },
@@ -65,6 +66,7 @@ const ICONS: IIcon[] = [
   { family: "fab", icon: "shopify" },
   { family: "fas", icon: "cart-shopping" },
   { family: "fas", icon: "bag-shopping" },
+  { family: "fas", icon: "kwai" as IconName },
 ];
 
 type IconPickerProps = {
@@ -102,7 +104,7 @@ export function IconPicker({ children, onIconSelect }: IconPickerProps) {
               <Input
                 type="search"
                 placeholder={t("Search Icon")}
-                className="pl-8 py-4 w-full text-gray-900 focus-visible:ring-0 border-zinc-200 focus-visible:outline-none"
+                className="pl-8 py-4 w-full text-gray-900 dark:text-white focus-visible:ring-0 border-zinc-200 focus-visible:outline-none"
                 onKeyUp={onTypeSearch}
                 onChange={onTypeSearch}
               />

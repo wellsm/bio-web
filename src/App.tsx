@@ -7,8 +7,10 @@ import { Register } from "@/app/pages/register";
 import { ThemeProvider } from "@/app/contexts/theme";
 import { Links } from "@/app/pages/links";
 import { Index } from "@/app/pages";
+import { Collections } from "@/app/pages/collections";
 import { Settings } from "@/app/pages/settings";
 import { Toaster } from "@/components/ui/sonner";
+import { Collection } from "./app/pages/collection";
 
 export function App() {
   return (
@@ -35,6 +37,17 @@ export function App() {
             }
           />
           <Route
+            path="collections"
+            element={
+              <ProtectedRoute>
+                <Collections />
+              </ProtectedRoute>
+            }
+          ></Route>
+
+          <Route path="collections/:hash" element={<Collection />} />
+    
+          <Route
             path="settings"
             element={
               <ProtectedRoute>
@@ -42,6 +55,7 @@ export function App() {
               </ProtectedRoute>
             }
           />
+
         </Routes>
         <Toaster />
       </AuthProvider>

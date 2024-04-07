@@ -72,6 +72,15 @@ export function NavBar() {
             {t('Links')}
           </Link>
           <Link
+            to="/collections"
+            className={cn(
+              "text-sm font-medium transition-colors hover:text-primary",
+              location.pathname !== "/collections" && "text-muted-foreground"
+            )}
+          >
+            {t("Collections")}
+          </Link>
+          <Link
             to="/settings"
             className={cn(
               "text-sm font-medium transition-colors hover:text-primary",

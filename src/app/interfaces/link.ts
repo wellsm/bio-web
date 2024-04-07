@@ -6,3 +6,9 @@ export interface ILink {
     active?: boolean
     fixed: boolean
 }
+export interface ICollectionLink {
+    id: number
+    title: string
+    url: string
+    thumbnail: string
+}

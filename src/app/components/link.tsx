@@ -3,7 +3,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
-import { Pencil, Pin, PinOff, Trash } from "lucide-react";
+import { Pencil, Pin, PinOff, Trash2 } from "lucide-react";
 import { ILink } from "../interfaces/link";
 import { EditLink } from "./edit-link";
 import { useState } from "react";
@@ -92,7 +92,7 @@ export function Link({
             className="h-8 rounded-md px-3 text-xs xl:h-9 xl:px-4 xl:py-2"
             onClick={() => setIsDeleting(true)}
           >
-            <Trash className="h-3 w-3" />
+            <Trash2 className="h-4 w-4 text-red-200" />
           </Button>
           {isDeleting && (
             <Confirmation
@@ -106,7 +106,7 @@ export function Link({
             className="h-8 rounded-md px-3 text-xs xl:h-9 xl:px-4 xl:py-2"
             onClick={() => setIsEditing(true)}
           >
-            <Pencil className="h-3 w-3" />
+            <Pencil className="h-4 w-4 text-yellow-100" />
           </Button>
           {isEditing && (
             <EditLink
