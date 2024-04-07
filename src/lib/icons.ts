@@ -54,6 +54,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope as farEnvelope, } from "@fortawesome/free-regular-svg-icons";
 import { faEnvelope as fasEnvelope, faShop, faCartShopping, faBagShopping } from "@fortawesome/free-solid-svg-icons";
+import { fasKwai } from "@/app/icons/kwai";
 
 library.add(
   faDribbble,
@@ -111,5 +112,6 @@ library.add(
   faShopify,
   faShop,
   faCartShopping,
-  faBagShopping
+  faBagShopping,
+  fasKwai
 );
