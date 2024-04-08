@@ -35,6 +35,8 @@ export function ColorGradientPicker({
             hideColorGuide={true}
             hideAdvancedSliders={true}
             hideInputType={true}
+            hideInputs={true}
+            height={200}
             presets={[
               "#000", //Black
               "#431407", //Orange950

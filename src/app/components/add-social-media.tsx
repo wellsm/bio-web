@@ -199,7 +199,7 @@ export function AddSocialMedia({ children, onSave }: AddSocialMediaProps) {
                               WebkitTextStroke: "0.5px #000",
                             }}
                           >
-                            {t("Clique here to change color")}
+                            {t("Click here to change color")}
                           </p>
                         </div>
                       </ColorGradientPicker>
@@ -231,7 +231,7 @@ export function AddSocialMedia({ children, onSave }: AddSocialMediaProps) {
                               WebkitTextStroke: "0.5px #000",
                             }}
                           >
-                            {t("Clique here to change color")}
+                            {t("Click here to change color")}
                           </p>
                         </div>
                       </ColorGradientPicker>

@@ -85,6 +85,9 @@
         "Change your social media icon style": "Alterar o Estilo do ícone de Rede Social",
         "Circle": "Redondo",
         "Square": "Quadrado",
-        "Rounded Square": "Quadrado Arredondado"
+        "Rounded Square": "Quadrado Arredondado",
+        "Icon Color": "Cor do Icone",
+        "Background Icon Color": "Cor do Fundo do Icone",
+        "Click here to change color": "Clique aqui para alterar a cor"
     }
 }
