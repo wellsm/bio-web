@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { SocialIcon } from "@/app/components/social-icon";
+import { IconStyle, SocialIcon } from "@/app/components/social-icon";
 import { BioLink } from "@/app/components/bio-link";
 import { Share } from "@/app/components/share";
 import { Loading } from "@/app/components/loading";
@@ -95,6 +95,11 @@ export function BioCollection({
               key={index}
               url={media.url}
               onClick={() => interact(media.id, "media")}
+              iconStyle={bio.configs['icon-style'] as IconStyle}
+              style={{
+                background: media.colors.background,
+                color: media.colors.text
+              }}
             >
               <FontAwesomeIcon
                 icon={[media.icon.family, media.icon.icon]}
