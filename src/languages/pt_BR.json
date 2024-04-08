@@ -80,6 +80,11 @@
         "Select Link": "Selecionar Link",
         "Search Link": "Buscar Link",
         "Too much results": "Muitos resultados encontrados",
-        "Use search input to filter results": "Use o campo de busca para filtrar"
+        "Use search input to filter results": "Use o campo de busca para filtrar",
+        "Icon Style": "Estilo do Icone",
+        "Change your social media icon style": "Alterar o Estilo do ícone de Rede Social",
+        "Circle": "Redondo",
+        "Square": "Quadrado",
+        "Rounded Square": "Quadrado Arredondado"
     }
 }

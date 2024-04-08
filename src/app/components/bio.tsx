@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { SocialIcon } from "@/app/components/social-icon";
+import { IconStyle, SocialIcon } from "@/app/components/social-icon";
 import { BioLink } from "@/app/components/bio-link";
 import { Share } from "@/app/components/share";
 import { Loading } from "@/app/components/loading";
@@ -118,15 +118,15 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
             mode == BioMode.Mobile
               ? "text-base font-semibold"
               : "text-xl font-bold",
-            "mt-3 text-slate-950"
+            "mt-4 text-slate-950"
           )}
         >
           {bio.profile.name}
         </h6>
         <div
           className={cn(
-            mode == BioMode.Mobile ? "gap-1" : "gap-3",
-            "mt-3 flex justify-center"
+            mode == BioMode.Mobile ? "gap-2" : "gap-3",
+            "mt-4 flex justify-center"
           )}
         >
           {bio.medias.map((media, index) => (
@@ -134,15 +134,20 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
               key={index}
               url={media.url}
               onClick={() => interact(media.id, "media")}
+              iconStyle={bio.configs['icon-style'] as IconStyle}
+              style={{
+                background: media.colors.background,
+                color: media.colors.text
+              }}
             >
               <FontAwesomeIcon
                 icon={[media.icon.family, media.icon.icon]}
-                className={cn(mode == BioMode.Mobile ? "h-6 w-6" : "h-7 w-7")}
+                className="h-6 w-6"
               />
             </SocialIcon>
           ))}
         </div>
-        <div className="mt-3 w-full">
+        <div className="mt-4 w-full">
           {bio.configs["enable-search"] === "1" && (
             <div className="relative mb-3">
               <Search
@@ -166,7 +171,7 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
 
           <div
             className={cn(
-              "grid mt-2",
+              "grid mt-3",
               bio.configs.layout == BioLayout.Grid &&
                 (mode == BioMode.Default
                   ? "grid-cols-3 gap-2 md:grid-cols-3 lg:grid-cols-4"

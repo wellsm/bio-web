@@ -2,15 +2,23 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 
-type SocialIconProps = {
+export enum IconStyle {
+  Circle        = "circle",
+  Square        = "square",
+  RoundedSquare = "rounded-square"
+}
+
+type SocialIconProps = React.ComponentPropsWithoutRef<React.ElementType> & {
   url?: string;
   children: ReactNode;
+  iconStyle: IconStyle;
   onClick(): void
 };
 
-export function SocialIcon({ url, children, onClick }: SocialIconProps) {
+export function SocialIcon({ url, children, iconStyle, onClick, ...props }: SocialIconProps) {
   return (
     <a
+      {...props}
       href={url ?? "#"}
       onClick={onClick}
       className={cn(
@@ -18,7 +26,10 @@ export function SocialIcon({ url, children, onClick }: SocialIconProps) {
           variant: "link",
           size: "icon",
         }),
-        "rounded-full w-8 h-8 sm:w-10 sm:h-10 hover:scale-110 text-[#333]"
+        iconStyle == IconStyle.Circle && "rounded-full",
+        iconStyle == IconStyle.Square && "rounded-none",
+        iconStyle == IconStyle.RoundedSquare && "rounded-lg",
+        "w-9 h-9 hover:scale-110 text-[#333]"
       )}
     >
       {children}
