@@ -13,7 +13,6 @@ import { ReactNode, useState } from "react";
 import { IconPicker } from "./icon-picker";
 import { IIcon } from "../interfaces/icon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ISocialMedia } from "../interfaces/social-media";
 
 import { z } from "zod";
 import {
@@ -30,26 +29,26 @@ import { http } from "@/lib/api";
 import { useToastStore } from "@/app/stores/toast";
 import { Loader } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { ColorGradientPicker } from "./color-gradient-picker";
 
 type AddSocialMediaProps = {
   children: ReactNode;
-  media?: ISocialMedia;
   onSave(): void;
 };
 
 const mediaSchema = z.object({
   icon: z.string().trim(),
   url: z.string().trim().url("The URL must be a valid link."),
+  text_color: z.string(),
+  background: z.string(),
 });
 
-export function AddSocialMedia({
-  children,
-  media,
-  onSave,
-}: AddSocialMediaProps) {
+export function AddSocialMedia({ children, onSave }: AddSocialMediaProps) {
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [icon, setIcon] = useState<IIcon | undefined>(media?.icon);
+  const [icon, setIcon] = useState<IIcon>();
+  const [textColor, setTextColor] = useState<string>("#000");
+  const [background, setBackground] = useState<string>("#fff");
   const { openToast } = useToastStore();
   const { t } = useTranslation();
 
@@ -58,6 +57,8 @@ export function AddSocialMedia({
     defaultValues: {
       icon: "",
       url: "",
+      text_color: textColor,
+      background: background,
     },
   });
 
@@ -87,6 +88,18 @@ export function AddSocialMedia({
     form.setValue("icon", `${icon.family} ${icon.icon}`);
   };
 
+  const onChangeTextColor = (color: string) => {
+    setTextColor(color);
+
+    form.setValue("text_color", color);
+  };
+
+  const onChangeBackgroundColor = (color: string) => {
+    setBackground(color);
+
+    form.setValue("background", color);
+  };
+
   return (
     <Sheet open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
       <SheetTrigger asChild onClick={() => setIsOpen(true)}>
@@ -110,7 +123,7 @@ export function AddSocialMedia({
                 name="icon"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('Icon')}</FormLabel>
+                    <FormLabel>{t("Icon")}</FormLabel>
                     <FormControl>
                       <div className="relative">
                         {icon && (
@@ -139,7 +152,7 @@ export function AddSocialMedia({
 
               <IconPicker onIconSelect={onChangeIcon}>
                 <Button variant="outline" className="-mt-2">
-                  {t('Select Icon')}
+                  {t("Select Icon")}
                 </Button>
               </IconPicker>
 
@@ -148,7 +161,7 @@ export function AddSocialMedia({
                 name="url"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('URL')}</FormLabel>
+                    <FormLabel>{t("URL")}</FormLabel>
                     <FormControl>
                       <Input
                         id="url"
@@ -164,9 +177,73 @@ export function AddSocialMedia({
                 )}
               ></FormField>
 
+              <FormField
+                control={form.control}
+                name="text_color"
+                render={() => (
+                  <FormItem>
+                    <FormLabel>{t("Icon Color")}</FormLabel>
+                    <FormControl>
+                      <ColorGradientPicker
+                        color="#000"
+                        onColorSelect={onChangeTextColor}
+                      >
+                        <div
+                          className="flex items-center justify-center h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-center text-xs"
+                          style={{
+                            background: textColor,
+                          }}
+                        >
+                          <p
+                            style={{
+                              WebkitTextStroke: "0.5px #000",
+                            }}
+                          >
+                            {t("Clique here to change color")}
+                          </p>
+                        </div>
+                      </ColorGradientPicker>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              ></FormField>
+
+              <FormField
+                control={form.control}
+                name="background"
+                render={() => (
+                  <FormItem>
+                    <FormLabel>{t("Background Icon Color")}</FormLabel>
+                    <FormControl>
+                      <ColorGradientPicker
+                        color="#fff"
+                        onColorSelect={onChangeBackgroundColor}
+                      >
+                        <div
+                          className="flex items-center justify-center h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-center text-xs"
+                          style={{
+                            background: background,
+                          }}
+                        >
+                          <p
+                            style={{
+                              WebkitTextStroke: "0.5px #000",
+                            }}
+                          >
+                            {t("Clique here to change color")}
+                          </p>
+                        </div>
+                      </ColorGradientPicker>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              ></FormField>
+
               <Button className="w-full" disabled={isSaving}>
                 {isSaving && <Loader className="mr-2 h-4 w-4 animate-spin" />}
-                {t('Save')}
+                {t("Save")}
               </Button>
             </form>
           </Form>

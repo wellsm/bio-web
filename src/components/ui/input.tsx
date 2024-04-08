@@ -10,7 +10,7 @@ export interface InputProps
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, icon, ...props }, ref) => {
     return (
-      <div className="relative flex items-center">
+      <div className="relative flex items-center w-full">
         {icon && <div className="absolute left-2 top-2">{icon}</div>}
         <input
           type={type}

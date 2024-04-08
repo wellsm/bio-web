@@ -31,6 +31,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { http } from "@/lib/api";
 import { useToastStore } from "@/app/stores/toast";
 import { useTranslation } from "react-i18next";
+import { ColorGradientPicker } from "./color-gradient-picker";
 
 type EditSocialMediaProps = {
   media: ISocialMedia;
@@ -43,6 +44,8 @@ const mediaSchema = z.object({
   icon: z.string().trim(),
   url: z.string().trim().url("The URL must be a valid link."),
   active: z.string(),
+  text_color: z.string(),
+  background: z.string(),
 });
 
 export function EditSocialMedia({
@@ -54,6 +57,8 @@ export function EditSocialMedia({
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(isDefaultOpen);
   const [icon, setIcon] = useState<IIcon | undefined>(media?.icon);
+  const [textColor, setTextColor] = useState<string>(media.colors.text);
+  const [background, setBackground] = useState<string>(media.colors.background);
   const { openToast } = useToastStore();
   const { t } = useTranslation();
 
@@ -63,6 +68,8 @@ export function EditSocialMedia({
       icon: `${media.icon.family} ${media.icon.icon}`,
       url: media?.url,
       active: media?.active ? "1" : "0",
+      text_color: textColor,
+      background: background,
     },
   });
 
@@ -90,6 +97,18 @@ export function EditSocialMedia({
     setIcon(icon);
 
     form.setValue("icon", `${icon.family} ${icon.icon}`);
+  };
+
+  const onChangeTextColor = (color: string) => {
+    setTextColor(color);
+
+    form.setValue("text_color", color);
+  };
+
+  const onChangeBackgroundColor = (color: string) => {
+    setBackground(color);
+
+    form.setValue("background", color);
   };
 
   const onOpenChange = (open: boolean) => {
@@ -168,6 +187,70 @@ export function EditSocialMedia({
                         disabled={isSaving}
                         {...field}
                       />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              ></FormField>
+
+              <FormField
+                control={form.control}
+                name="text_color"
+                render={() => (
+                  <FormItem>
+                    <FormLabel>{t("Icon Color")}</FormLabel>
+                    <FormControl>
+                      <ColorGradientPicker
+                        color={textColor}
+                        onColorSelect={onChangeTextColor}
+                      >
+                        <div
+                          className="flex items-center justify-center h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-center text-xs"
+                          style={{
+                            background: textColor,
+                          }}
+                        >
+                          <p
+                            style={{
+                              WebkitTextStroke: "0.5px #000",
+                            }}
+                          >
+                            {t("Clique here to change color")}
+                          </p>
+                        </div>
+                      </ColorGradientPicker>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              ></FormField>
+
+              <FormField
+                control={form.control}
+                name="background"
+                render={() => (
+                  <FormItem>
+                    <FormLabel>{t("Background Icon Color")}</FormLabel>
+                    <FormControl>
+                      <ColorGradientPicker
+                        color={background}
+                        onColorSelect={onChangeBackgroundColor}
+                      >
+                        <div
+                          className="flex items-center justify-center h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-center text-xs"
+                          style={{
+                            background: background,
+                          }}
+                        >
+                          <p
+                            style={{
+                              WebkitTextStroke: "0.5px #000",
+                            }}
+                          >
+                            {t("Clique here to change color")}
+                          </p>
+                        </div>
+                      </ColorGradientPicker>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

@@ -1,16 +1,12 @@
 import { ICollection } from "./collection";
 import { IIcon } from "./icon";
-
-interface IBioSocialMediaColor {
-    text: string;
-    background: string;
-}
+import { ISocialMediaColor } from "./social-media";
 
 interface IBioSocialMedia {
     id: number
     icon: IIcon;
     url: string;
-    colors: IBioSocialMediaColor;
+    colors: ISocialMediaColor;
 }
 
 interface IBioProfile {
