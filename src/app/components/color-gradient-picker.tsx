@@ -37,6 +37,12 @@ export function ColorGradientPicker({
             hideInputType={true}
             hideInputs={true}
             height={200}
+            locales={{
+              CONTROLS: {
+                SOLID: t('Solid'),
+                GRADIENT: t('Gradient'),
+              }
+            }}
             presets={[
               "#000", //Black
               "#431407", //Orange950

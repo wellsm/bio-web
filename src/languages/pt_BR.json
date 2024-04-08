@@ -88,6 +88,8 @@
         "Rounded Square": "Quadrado Arredondado",
         "Icon Color": "Cor do Icone",
         "Background Icon Color": "Cor do Fundo do Icone",
-        "Click here to change color": "Clique aqui para alterar a cor"
+        "Click here to change color": "Clique aqui para alterar a cor",
+        "Solid": "Cor Solida",
+        "Gradient": "Gradiente"
     }
 }
