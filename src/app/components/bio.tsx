@@ -142,7 +142,7 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
             >
               <FontAwesomeIcon
                 icon={[media.icon.family, media.icon.icon]}
-                className="h-6 w-6"
+                className="h-5 w-5"
               />
             </SocialIcon>
           ))}
@@ -153,7 +153,7 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
               <Search
                 className={cn(
                   mode == BioMode.Mobile ? "top-3" : "top-3.5",
-                  "absolute left-2 h-4 w-4 text-muted-foreground"
+                  "absolute left-2 h-4 w-4 text-muted-foreground z-10"
                 )}
               />
               <Input
@@ -161,7 +161,7 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
                 placeholder={t("Search Links, Products")}
                 className={cn(
                   mode == BioMode.Mobile ? "h-10" : "h-11",
-                  "pl-8 py-4 text-gray-900 focus-visible:ring-0 border-zinc-200 focus-visible:outline-none"
+                  "pl-8 py-4 text-gray-900 focus-visible:ring-0 border-zinc-200 focus-visible:outline-none bg-white z-0"
                 )}
                 onKeyUp={onTypeSearch}
                 onChange={onTypeSearch}

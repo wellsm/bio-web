@@ -26,15 +26,6 @@ type ShareProps = {
   isOpen: boolean;
 };
 
-enum SocialMedia {
-  Facebook = 1,
-  X = 2,
-  WhatsApp = 3,
-  LinkedIn = 4,
-  Messenger = 5,
-  Mail = 6,
-}
-
 export function Share({
   link,
   onClose,
@@ -54,30 +45,6 @@ export function Share({
     setTimeout(() => setInCopy(false), seconds * 1000);
   };
 
-  const share = (media: SocialMedia): string => {
-    if (media == SocialMedia.Facebook) {
-      return `https://www.facebook.com/sharer.php?u=${link}`;
-    }
-
-    if (media == SocialMedia.X) {
-      return `https://x.com/intent/tweet?text=Check%20out%20this%20Page!%20-%20${link}`;
-    }
-
-    if (media == SocialMedia.WhatsApp) {
-      return `https://wa.me/?text=Check%20out%20this%20Page!%20-%20${link}`;
-    }
-
-    if (media == SocialMedia.LinkedIn) {
-      return `https://www.linkedin.com/sharing/share-offsite/?url=${link}`;
-    }
-
-    if (media == SocialMedia.Messenger) {
-      return `https://www.messenger.com/new`;
-    }
-
-    return `mailto:?subject=Check out this Page!&body=Check%20out%20this%20Page! - ${link}`;
-  };
-
   const onOpenChange = (open: boolean) => {
     setIsOpen(open);
 
@@ -91,7 +58,7 @@ export function Share({
       <div className="flex flex-col mt-3">
         <p className="text-slate-900 mb-4">{t("Share this link via")}</p>
         <ul className="flex items-center justify-center gap-3 mb-4">
-          <a href={share(SocialMedia.Facebook)}>
+          <a href={`https://www.facebook.com/sharer.php?u=${link}`}>
             <li className="rounded-full border border-blue-300 text-blue-500 w-11 h-11 flex items-center justify-center cursor-pointer hover:bg-blue-500 hover:text-white hover:border-blue-500">
               <FontAwesomeIcon
                 icon={["fab", "facebook-f"]}
@@ -99,7 +66,7 @@ export function Share({
               />
             </li>
           </a>
-          <a href={share(SocialMedia.X)}>
+          <a href={`https://x.com/intent/tweet?text=Check%20out%20this%20Page!%20-%20${link}`}>
             <li className="rounded-full border border-slate-300 text-slate-700 w-11 h-11 flex items-center justify-center cursor-pointer hover:bg-slate-700 hover:text-white hover:border-slate-700">
               <FontAwesomeIcon
                 icon={["fab", "x-twitter"]}
@@ -107,12 +74,12 @@ export function Share({
               />
             </li>
           </a>
-          <a href={share(SocialMedia.WhatsApp)}>
+          <a href={`https://wa.me/?text=Check%20out%20this%20Page!%20-%20${link}`}>
             <li className="rounded-full border border-green-300 text-green-500 w-11 h-11 flex items-center justify-center cursor-pointer hover:bg-green-500 hover:text-white hover:border-green-500">
               <FontAwesomeIcon icon={["fab", "whatsapp"]} className="h-6 w-6" />
             </li>
           </a>
-          <a href={share(SocialMedia.LinkedIn)}>
+          <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${link}`}>
             <li className="rounded-full border border-blue-300 text-blue-600 w-11 h-11 flex items-center justify-center cursor-pointer hover:bg-blue-600 hover:text-white hover:border-blue-600">
               <FontAwesomeIcon
                 icon={["fab", "linkedin-in"]}
@@ -120,7 +87,7 @@ export function Share({
               />
             </li>
           </a>
-          <a href={share(SocialMedia.Messenger)}>
+          <a href={`https://www.messenger.com/new`}>
             <li className="rounded-full border border-indigo-300 text-indigo-600 w-11 h-11 flex items-center justify-center cursor-pointer hover:bg-indigo-600 hover:text-white hover:border-indigo-600">
               <FontAwesomeIcon
                 icon={["fab", "facebook-messenger"]}
@@ -128,7 +95,7 @@ export function Share({
               />
             </li>
           </a>
-          <a href={share(SocialMedia.Mail)}>
+          <a href={`mailto:?subject=Check out this Page!&body=Check%20out%20this%20Page! - ${link}`}>
             <li className="rounded-full border border-slate-300 text-slate-900 w-11 h-11 flex items-center justify-center cursor-pointer hover:bg-slate-900 hover:text-white hover:border-slate-900">
               <FontAwesomeIcon
                 icon={["fas", "envelope"]}
