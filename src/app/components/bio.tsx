@@ -6,7 +6,6 @@ import { Share } from "@/app/components/share";
 import { Loading } from "@/app/components/loading";
 import { Search } from "lucide-react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Input } from "@/components/ui/input";
 import { http } from "@/lib/api";
 import { IBio, IBioLink } from "@/app/interfaces/bio";
@@ -133,18 +132,15 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
             <SocialIcon
               key={index}
               url={media.url}
+              prefix={media.icon.family}
+              icon={media.icon.icon}
               onClick={() => interact(media.id, "media")}
               iconStyle={bio.configs['icon-style'] as IconStyle}
               style={{
                 background: media.colors.background,
                 color: media.colors.text
               }}
-            >
-              <FontAwesomeIcon
-                icon={[media.icon.family, media.icon.icon]}
-                className="h-5 w-5"
-              />
-            </SocialIcon>
+            />
           ))}
         </div>
         <div className="mt-4 w-full">

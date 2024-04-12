@@ -5,7 +5,6 @@ import { BioLink } from "@/app/components/bio-link";
 import { Share } from "@/app/components/share";
 import { Loading } from "@/app/components/loading";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { http } from "@/lib/api";
 import { IBioCollection } from "@/app/interfaces/bio";
 import { cn, fallback, src } from "@/lib/utils";
@@ -23,8 +22,8 @@ export function BioCollection({
   interaction = false,
   hash,
 }: BioCollectionProps) {
-  const [bio, setBio] = useState<IBioCollection|null>(null);
-  const [shareText, setShareText] = useState<string|null>(null);
+  const [bio, setBio] = useState<IBioCollection | null>(null);
+  const [shareText, setShareText] = useState<string | null>(null);
 
   const layout: BioLayout = (bio?.configs?.layout ??
     BioLayout.List) as BioLayout;
@@ -35,7 +34,7 @@ export function BioCollection({
   };
 
   useEffect(() => {
-    if (hash === '') {
+    if (hash === "") {
       return;
     }
 
@@ -53,7 +52,7 @@ export function BioCollection({
       <Helmet>
         <title>{bio.profile.name} - Bio</title>
 
-        <meta name="theme-color" content="#FFFFFF"/>
+        <meta name="theme-color" content="#FFFFFF" />
       </Helmet>
       <div className="flex flex-col items-center max-w-screen-sm w-full relative">
         <Button
@@ -71,43 +70,36 @@ export function BioCollection({
             onClose={() => setShareText(null)}
           />
         )}
-        <Avatar
-          className="sm:h-24 sm:w-24 h-20 w-20"
-        >
+        <Avatar className="sm:h-24 sm:w-24 h-20 w-20">
           {bio.profile.avatar && <AvatarImage src={src(bio.profile.avatar)} />}
           <AvatarFallback>{fallback(bio.profile.name)}</AvatarFallback>
         </Avatar>
-        <h6
-          className="text-xl font-bold mt-4 text-slate-950"
-        >
+        <h6 className="text-xl font-bold mt-4 text-slate-950">
           {bio.profile.name}
         </h6>
-        <div
-          className="gap-3 mt-4 flex justify-center"
-        >
+        <div className="gap-3 mt-4 flex justify-center">
           {bio.medias.map((media, index) => (
             <SocialIcon
               key={index}
               url={media.url}
+              prefix={media.icon.family}
+              icon={media.icon.icon}
               onClick={() => interact(media.id, "media")}
-              iconStyle={bio.configs['icon-style'] as IconStyle}
+              iconStyle={bio.configs["icon-style"] as IconStyle}
               style={{
                 background: media.colors.background,
-                color: media.colors.text
+                color: media.colors.text,
               }}
-            >
-              <FontAwesomeIcon
-                icon={[media.icon.family, media.icon.icon]}
-                className="h-7 w-7"
-              />
-            </SocialIcon>
+            />
           ))}
         </div>
         <div className="mt-4 w-full">
-        <div
+          <div
             className={cn(
               "grid mt-3",
-              bio.configs.layout == BioLayout.Grid ? "grid-cols-3 gap-2 md:grid-cols-3 lg:grid-cols-4" : "grid-cols-1"
+              bio.configs.layout == BioLayout.Grid
+                ? "grid-cols-3 gap-2 md:grid-cols-3 lg:grid-cols-4"
+                : "grid-cols-1"
             )}
           >
             {bio.collection.links?.map((link, index) => (

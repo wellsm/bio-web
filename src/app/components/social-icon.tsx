@@ -1,6 +1,7 @@
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
+import { IconName, IconPrefix } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export enum IconStyle {
   Circle        = "circle",
@@ -10,12 +11,13 @@ export enum IconStyle {
 
 type SocialIconProps = React.ComponentPropsWithoutRef<React.ElementType> & {
   url?: string;
-  children: ReactNode;
   iconStyle: IconStyle;
+  prefix: IconPrefix,
+  icon: IconName,
   onClick(): void
 };
 
-export function SocialIcon({ url, children, iconStyle, onClick, ...props }: SocialIconProps) {
+export function SocialIcon({ url, iconStyle, prefix, icon, onClick, ...props }: SocialIconProps) {
   return (
     <a
       {...props}
@@ -32,7 +34,10 @@ export function SocialIcon({ url, children, iconStyle, onClick, ...props }: Soci
         "w-9 h-9 hover:scale-110 text-[#333]"
       )}
     >
-      {children}
+      <FontAwesomeIcon
+        icon={[prefix, icon]}
+        className="h-5 w-5"
+      />
     </a>
   );
 }
