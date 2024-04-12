@@ -12,11 +12,7 @@ import { cn, fallback, src } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { PaginationEllipsis } from "@/components/ui/pagination";
 import { Helmet } from "react-helmet";
-
-export enum BioLayout {
-  List = "list",
-  Grid = "grid",
-}
+import { BioLayout } from "./bio";
 
 type BioCollectionProps = {
   hash: string;
@@ -45,7 +41,6 @@ export function BioCollection({
 
     http.get(`bio/collections/${hash}`).then(({ data }) => {
       setBio(data);
-      //interact(1, "view");
     });
   }, [hash]);
 
@@ -83,12 +78,12 @@ export function BioCollection({
           <AvatarFallback>{fallback(bio.profile.name)}</AvatarFallback>
         </Avatar>
         <h6
-          className="text-xl font-bold mt-3 text-slate-950"
+          className="text-xl font-bold mt-4 text-slate-950"
         >
           {bio.profile.name}
         </h6>
         <div
-          className="gap-3 mt-2 flex justify-center"
+          className="gap-3 mt-4 flex justify-center"
         >
           {bio.medias.map((media, index) => (
             <SocialIcon
@@ -108,10 +103,10 @@ export function BioCollection({
             </SocialIcon>
           ))}
         </div>
-        <div className="mt-3 w-full">
+        <div className="mt-4 w-full">
         <div
             className={cn(
-              "grid",
+              "grid mt-3",
               bio.configs.layout == BioLayout.Grid ? "grid-cols-3 gap-2 md:grid-cols-3 lg:grid-cols-4" : "grid-cols-1"
             )}
           >
