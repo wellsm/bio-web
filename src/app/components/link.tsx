@@ -13,7 +13,6 @@ import { Confirmation } from "./confirmation";
 import { src } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import { useBioStore } from "../stores/bio";
-import { useCopyToClipboard } from "usehooks-ts";
 
 type LinkProps = ILink & {
   onChange(): void;
@@ -32,7 +31,6 @@ export function Link({
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isFixed, setIsFixed] = useState<boolean>(fixed);
-  const [, copy] = useCopyToClipboard();
 
   const { t } = useTranslation();
   const { openToast } = useToastStore();
@@ -73,14 +71,10 @@ export function Link({
     }
   };
 
-  const handleCopy = (text: string) => () => {
-    copy(text)
-      .then(() => {
-        openToast(t("Copied"), t("Link copied to clipboard"));
-      })
-      .catch((error) => {
-        console.error("Failed to copy!", error);
-      });
+  const copyToClipboard = (url: string): void => {
+    navigator.clipboard.writeText(url);
+
+    openToast(t("Copied"), t("Link copied to clipboard"));
   };
 
   return (
@@ -106,7 +100,7 @@ export function Link({
           {shortUrl && (
             <Link2
               className="w-6 h-6 mr-2 cursor-pointer "
-              onClick={handleCopy(shortUrl)}
+              onClick={() => copyToClipboard(shortUrl)}
             />
           )}
           <div
