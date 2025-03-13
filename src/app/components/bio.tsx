@@ -62,8 +62,6 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
   function onTypeSearch({
     currentTarget,
   }: React.SyntheticEvent<HTMLInputElement>) {
-    console.log(currentTarget.value.toLowerCase());
-
     setSearch(currentTarget.value.toLowerCase());
   }
 
@@ -167,7 +165,7 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
 
           <div
             className={cn(
-              "grid mt-3",
+              "grid mt-3 bio-link-container",
               bio.configs.layout == BioLayout.Grid &&
                 (mode == BioMode.Default
                   ? "grid-cols-3 gap-2 md:grid-cols-3 lg:grid-cols-4"
