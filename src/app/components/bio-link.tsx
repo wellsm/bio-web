@@ -42,6 +42,14 @@ export function BioLink({
       .then(() => window.open(url, "_blank"));
   };
 
+  function getThumbnail(thumbnail: string) {
+    const baseURL = import.meta.env.VITE_API_MEDIA_BASE_URL;  
+
+    return thumbnail.includes(baseURL)
+      ? thumbnail.replace(baseURL, "").replace(/^\/|\/$/g, "")
+      : thumbnail;
+  }
+
   return layout == BioLayout.List ? (
     <a
       href={url}
@@ -58,7 +66,7 @@ export function BioLink({
             )}
           >
             <img
-              src={thumbnail}
+              src={getThumbnail(thumbnail)}
               alt=""
               className={cn(
                 mode == BioMode.Mobile ? "w-10 h-10" : "w-12 h-12",

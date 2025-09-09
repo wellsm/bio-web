@@ -77,7 +77,7 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
 
           <meta name="theme-color" content="#FFFFFF"/>
 
-          {bio.configs["tag-pinterest"].trim() != "" && (
+          {bio.configs["tag-pinterest"]?.trim() != "" && (
             <meta
               name="p:domain_verify"
               content={bio.configs["tag-pinterest"]}
