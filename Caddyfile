@@ -18,8 +18,8 @@
     # health check for railway
     respond /health 200
 
-    # serve from the 'dist' folder (Vite builds into the 'dist' folder)
-    root * dist
+    # serve from the '/srv' folder (Vite builds into the '/srv' folder)
+    root * /srv
 
     # enable gzipping responses
     encode gzip
