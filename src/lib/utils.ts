@@ -6,6 +6,10 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function src(source: string): string {
+  if (source.includes('http://') || source.includes('https://')) {
+    return source;
+  }
+
   return `${import.meta.env.VITE_API_MEDIA_BASE_URL.replace(/^\/|\/$/g, '')}/${source.replace(/^\/|\/$/g, '')}`
 }
 

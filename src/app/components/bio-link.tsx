@@ -43,11 +43,16 @@ export function BioLink({
   };
 
   function getThumbnail(thumbnail: string) {
-    const baseURL = import.meta.env.VITE_API_MEDIA_BASE_URL;  
-
-    return thumbnail.includes(baseURL)
+    const baseURL = import.meta.env.VITE_API_MEDIA_BASE_URL;
+    const imageURL = thumbnail.includes(baseURL)
       ? thumbnail.replace(baseURL, "").replace(/^\/|\/$/g, "")
       : thumbnail;
+
+    if (window.location.origin !== baseURL && !imageURL.includes("https")) {
+      return `${baseURL}/${imageURL}`;
+    }
+
+    return imageURL;
   }
 
   return layout == BioLayout.List ? (
