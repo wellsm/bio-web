@@ -2,8 +2,16 @@
 import { BEARER } from "@/app/contexts/auth";
 import axios from "axios";
 
+export const baseURL = (): string => {
+  return `${import.meta.env.VITE_API_BASE_URL.replace(/\/$/g, "")}`;
+}
+
+export const apiURL = (endpoint: string = ""): string => {
+  return `${baseURL()}/${endpoint.replace(/^\/|\/$/g, "")}`;
+}
+
 export const client = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: baseURL(),
 });
 
 client.interceptors.request.use((config) => {

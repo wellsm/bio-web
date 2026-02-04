@@ -5,7 +5,7 @@ import { BioLink } from "@/app/components/bio-link";
 import { Share } from "@/app/components/share";
 import { Loading } from "@/app/components/loading";
 
-import { http } from "@/lib/api";
+import { apiURL, http } from "@/lib/api";
 import { IBioCollection } from "@/app/interfaces/bio";
 import { cn, fallback, src } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -30,7 +30,9 @@ export function BioCollection({
 
   // TODO - Interaction receive ID From Controls Quantity Requests
   const interact = (id: number, type: string) => {
-    interaction && http.post("interaction", { id, type });
+    interaction && navigator.sendBeacon(apiURL('interaction'), new Blob([
+      JSON.stringify({ id, type }),
+    ], { type: 'application/json' }));
   };
 
   useEffect(() => {

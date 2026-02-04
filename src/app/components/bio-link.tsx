@@ -3,8 +3,7 @@ import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { PaginationEllipsis } from "@/components/ui/pagination";
 import { BioLayout, BioMode } from "./bio";
 import { cn } from "@/lib/utils";
-import { http } from "@/lib/api";
-import React from "react";
+import { apiURL } from "@/lib/api";
 
 export type LinkProps = {
   id: number;
@@ -27,19 +26,10 @@ export function BioLink({
   mode = BioMode.Default,
   layout = BioLayout.List,
 }: LinkProps) {
-  const interact = (e: React.MouseEvent<HTMLElement>, id: number) => {
-    e.preventDefault();
-
-    const container =
-      e.target instanceof Element ? e.target.closest(".share-button") : null;
-
-    if (container?.nodeName.toLowerCase() === "button") {
-      return onShare(url);
-    }
-
-    http
-      .post("interaction", { id, type: "link" })
-      .then(() => window.open(url, "_blank"));
+  const interact = (id: number) => {
+    navigator.sendBeacon(apiURL('interaction'), new Blob([
+      JSON.stringify({ id, type: 'link' }),
+    ], { type: 'application/json' }));
   };
 
   function getThumbnail(thumbnail: string) {
@@ -56,52 +46,55 @@ export function BioLink({
   }
 
   return layout == BioLayout.List ? (
-    <a
-      href={url}
-      className="group flex flex-wrap w-full"
-      onClick={(e) => interaction && interact(e, id)}
-    >
-      <Card className="mb-3 sm:hover:scale-105 bg-gray-200 border-0 w-full">
-        <CardContent className="p-1">
-          <div
-            className={cn(
-              layout == BioLayout.List
-                ? "flex items-center justify-between"
-                : ""
-            )}
-          >
-            <img
-              src={getThumbnail(thumbnail)}
-              alt=""
+    <div className="relative">
+      <a
+        href={url}
+        className="group flex flex-wrap w-full"
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => interaction && interact(id)}
+      >
+        <Card className="mb-3 sm:hover:scale-105 bg-gray-200 border-0 w-full">
+          <CardContent className="p-1">
+            <div
               className={cn(
-                mode == BioMode.Mobile ? "w-10 h-10" : "w-12 h-12",
-                "rounded-md"
-              )}
-            />
-            <CardTitle
-              className={cn(
-                mode == BioMode.Mobile ? "text-xs" : "text-base lg:w-[80%]",
-                "text-slate-700 font-medium text-center w-[70%]"
+                layout == BioLayout.List
+                  ? "flex items-center justify-between"
+                  : ""
               )}
             >
-              {title}
-            </CardTitle>
-            <Button
-              variant="ghost"
-              size="icon"
-              className={cn(
-                mode == BioMode.Mobile
-                  ? "opacity-1"
-                  : "sm:opacity-0 sm:group-hover:opacity-100",
-                "rounded-full text-slate-800 hover:bg-gray-300 hover:text-slate-800 share-button"
-              )}
-            >
-              <PaginationEllipsis className="h-4 w-4" />
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    </a>
+              <img
+                src={getThumbnail(thumbnail)}
+                alt=""
+                className={cn(
+                  mode == BioMode.Mobile ? "w-10 h-10" : "w-12 h-12",
+                  "rounded-md"
+                )}
+              />
+              <CardTitle
+                className={cn(
+                  mode == BioMode.Mobile ? "text-xs" : "text-base lg:w-[80%]",
+                  "text-slate-700 font-medium text-center w-[70%]"
+                )}
+              >
+                {title}
+              </CardTitle>
+              <div className="w-4"/>
+            </div>
+          </CardContent>
+        </Card>
+      </a>
+      <Button
+        variant="ghost"
+        size="icon"
+        className={cn(
+          "rounded-full text-slate-800 hover:bg-gray-300 hover:text-slate-800 share-button absolute right-2 top-2 z-1"
+        )}
+        onClick={() => onShare(url)}
+      >
+        <PaginationEllipsis className="h-4 w-4" />
+      </Button>
+    </div>
   ) : (
     <a
       href={url}

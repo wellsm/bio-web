@@ -7,7 +7,7 @@ import { Loading } from "@/app/components/loading";
 import { Search } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
-import { http } from "@/lib/api";
+import { apiURL, http } from "@/lib/api";
 import { IBio, IBioLink } from "@/app/interfaces/bio";
 import { cn, fallback, src } from "@/lib/utils";
 import { useBioStore } from "@/app/stores/bio";
@@ -48,7 +48,9 @@ export function Bio({ interaction = false, mode = BioMode.Default }: BioProps) {
 
   // TODO - Interaction receive ID From Controls Quantity Requests
   const interact = (id: number, type: string) => {
-    interaction && http.post("interaction", { id, type });
+    interaction && navigator.sendBeacon(apiURL('interaction'), new Blob([
+      JSON.stringify({ id, type }),
+    ], { type: 'application/json' }));
   };
 
   useEffect(() => {
