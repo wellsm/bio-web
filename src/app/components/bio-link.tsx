@@ -99,7 +99,9 @@ export function BioLink({
     <a
       href={url}
       className="flex flex-wrap"
-      onClick={(e) => interaction && interact(e, id)}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={() => interaction && interact(id)}
     >
       <Card className="bg-gray-200 border border-slate-300 rounded-md">
         <CardContent className="p-0 rounded-t-xs">
